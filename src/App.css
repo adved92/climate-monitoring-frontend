@@ -1,0 +1,66 @@
+.App {
+  min-height: 100vh;
+  background: linear-gradient(to bottom, #f0f4f8, #d9e2ec);
+}
+
+.App-header {
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  color: white;
+  padding: 32px 24px;
+  text-align: center;
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.1);
+}
+
+.App-header h1 {
+  margin: 0 0 8px 0;
+  font-size: 2.5rem;
+  font-weight: 700;
+}
+
+.App-header p {
+  margin: 0;
+  font-size: 1.1rem;
+  opacity: 0.95;
+}
+
+.App-main {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 32px 24px;
+}
+
+.current-location {
+  text-align: center;
+  margin-bottom: 24px;
+  font-size: 18px;
+  color: #333;
+  font-weight: 500;
+}
+
+.data-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 24px;
+  margin-top: 24px;
+}
+
+.App-footer {
+  text-align: center;
+  padding: 24px;
+  color: #666;
+  font-size: 14px;
+}
+
+@media (max-width: 768px) {
+  .App-header h1 {
+    font-size: 2rem;
+  }
+  
+  .App-main {
+    padding: 16px;
+  }
+  
+  .data-grid {
+    grid-template-columns: 1fr;
+  }
+}
