@@ -1,0 +1,190 @@
+.temperature-trend-chart {
+  background: white;
+  border-radius: 12px;
+  padding: 24px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  margin: 20px 0;
+}
+
+.chart-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 20px;
+  flex-wrap: wrap;
+  gap: 16px;
+}
+
+.chart-header h3 {
+  margin: 0;
+  font-size: 24px;
+  color: #1a1a1a;
+}
+
+.time-range-toggle {
+  display: flex;
+  gap: 8px;
+  background: #f5f5f5;
+  padding: 4px;
+  border-radius: 8px;
+}
+
+.range-btn {
+  padding: 8px 16px;
+  border: none;
+  background: transparent;
+  border-radius: 6px;
+  cursor: pointer;
+  font-size: 14px;
+  font-weight: 500;
+  color: #666;
+  transition: all 0.2s;
+}
+
+.range-btn:hover {
+  background: #e0e0e0;
+}
+
+.range-btn.active {
+  background: white;
+  color: #2196f3;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+}
+
+.chart-loading,
+.chart-error,
+.chart-no-location {
+  text-align: center;
+  padding: 40px 20px;
+  color: #666;
+}
+
+.chart-error {
+  color: #d32f2f;
+}
+
+.retry-button {
+  margin-top: 16px;
+  padding: 10px 24px;
+  background: #2196f3;
+  color: white;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  font-size: 14px;
+  font-weight: 500;
+}
+
+.retry-button:hover {
+  background: #1976d2;
+}
+
+.chart-container {
+  margin: 20px 0;
+}
+
+.custom-tooltip {
+  background: white;
+  border: 2px solid #2196f3;
+  border-radius: 8px;
+  padding: 12px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
+}
+
+.tooltip-time {
+  margin: 0 0 8px 0;
+  font-size: 13px;
+  font-weight: 600;
+  color: #1a1a1a;
+}
+
+.tooltip-temp,
+.tooltip-feels {
+  margin: 4px 0;
+  font-size: 13px;
+  display: flex;
+  justify-content: space-between;
+  gap: 12px;
+}
+
+.temp-label,
+.feels-label {
+  color: #666;
+}
+
+.temp-value {
+  color: #2196f3;
+  font-weight: 600;
+}
+
+.feels-value {
+  color: #ff9800;
+  font-weight: 600;
+}
+
+.chart-summary {
+  display: flex;
+  justify-content: space-around;
+  padding: 16px;
+  background: #f5f5f5;
+  border-radius: 8px;
+  margin-top: 20px;
+}
+
+.summary-item {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 4px;
+}
+
+.summary-label {
+  font-size: 12px;
+  color: #666;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.summary-value {
+  font-size: 20px;
+  font-weight: 700;
+  color: #2196f3;
+}
+
+/* Mobile responsive */
+@media (max-width: 768px) {
+  .temperature-trend-chart {
+    padding: 16px;
+  }
+
+  .chart-header {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .chart-header h3 {
+    font-size: 20px;
+  }
+
+  .time-range-toggle {
+    width: 100%;
+  }
+
+  .range-btn {
+    flex: 1;
+  }
+
+  .chart-container {
+    margin: 16px 0;
+  }
+
+  .chart-summary {
+    flex-direction: column;
+    gap: 12px;
+  }
+
+  .summary-item {
+    flex-direction: row;
+    justify-content: space-between;
+  }
+}

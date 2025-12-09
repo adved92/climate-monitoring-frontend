@@ -5,11 +5,11 @@ import App from './App'
 describe('App', () => {
   it('renders the app title', () => {
     render(<App />)
-    expect(screen.getByText('Climate Monitoring System')).toBeInTheDocument()
+    expect(screen.getByText(/Climate Monitoring System/i)).toBeInTheDocument()
   })
 
-  it('renders home page by default', () => {
+  it('renders location search by default', () => {
     render(<App />)
-    expect(screen.getByText(/Home Page/i)).toBeInTheDocument()
+    expect(screen.getByText(/Search Worldwide/i)).toBeInTheDocument()
   })
 })

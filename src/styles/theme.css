@@ -1,0 +1,116 @@
+/* Theme Variables */
+:root {
+  /* Light theme colors */
+  --bg-primary: #ffffff;
+  --bg-secondary: #f9f9f9;
+  --bg-tertiary: #f0f0f0;
+  
+  --text-primary: #2c3e50;
+  --text-secondary: #555555;
+  --text-tertiary: #888888;
+  
+  --border-color: #e0e0e0;
+  --shadow: rgba(0, 0, 0, 0.1);
+  
+  --accent-primary: #4a90e2;
+  --accent-hover: #357abd;
+  
+  --success: #00e400;
+  --warning: #f39c12;
+  --error: #e74c3c;
+  --info: #4a90e2;
+}
+
+[data-theme="dark"] {
+  /* Dark theme colors */
+  --bg-primary: #1a1a1a;
+  --bg-secondary: #2d2d2d;
+  --bg-tertiary: #3a3a3a;
+  
+  --text-primary: #e0e0e0;
+  --text-secondary: #b0b0b0;
+  --text-tertiary: #808080;
+  
+  --border-color: #404040;
+  --shadow: rgba(0, 0, 0, 0.3);
+  
+  --accent-primary: #5a9ff2;
+  --accent-hover: #4a8fd2;
+  
+  --success: #10f410;
+  --warning: #f3ac22;
+  --error: #f75c4c;
+  --info: #5a9ff2;
+}
+
+/* Apply theme to body */
+body {
+  background-color: var(--bg-secondary);
+  color: var(--text-primary);
+  transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+/* Global component styles */
+.card,
+.weather-card,
+.forecast-display,
+.hourly-forecast,
+.air-quality-card,
+.uv-index-card,
+.earthquake-tracker {
+  background: var(--bg-primary);
+  color: var(--text-primary);
+  border-color: var(--border-color);
+}
+
+/* Buttons */
+button {
+  transition: background-color 0.2s ease, color 0.2s ease;
+}
+
+.btn-primary {
+  background-color: var(--accent-primary);
+  color: white;
+}
+
+.btn-primary:hover {
+  background-color: var(--accent-hover);
+}
+
+/* Inputs */
+input,
+select,
+textarea {
+  background-color: var(--bg-primary);
+  color: var(--text-primary);
+  border-color: var(--border-color);
+}
+
+input:focus,
+select:focus,
+textarea:focus {
+  border-color: var(--accent-primary);
+}
+
+/* Links */
+a {
+  color: var(--accent-primary);
+}
+
+a:hover {
+  color: var(--accent-hover);
+}
+
+/* Shadows */
+.shadow {
+  box-shadow: 0 2px 8px var(--shadow);
+}
+
+.shadow-lg {
+  box-shadow: 0 4px 20px var(--shadow);
+}
+
+/* Smooth transitions for theme changes */
+* {
+  transition: background-color 0.3s ease, color 0.3s ease, border-color 0.3s ease;
+}

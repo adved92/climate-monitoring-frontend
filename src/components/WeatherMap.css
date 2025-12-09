@@ -1,0 +1,161 @@
+.weather-map-container {
+  background: white;
+  border-radius: 12px;
+  padding: 20px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  margin: 20px 0;
+}
+
+.map-controls {
+  margin-bottom: 16px;
+}
+
+.map-controls h3 {
+  margin: 0 0 16px 0;
+  font-size: 24px;
+  color: #1a1a1a;
+}
+
+.layer-controls {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  flex-wrap: wrap;
+}
+
+.layer-label {
+  font-size: 14px;
+  font-weight: 600;
+  color: #666;
+}
+
+.layer-buttons {
+  display: flex;
+  gap: 8px;
+  flex-wrap: wrap;
+}
+
+.layer-btn {
+  padding: 8px 16px;
+  border: 2px solid #e0e0e0;
+  background: white;
+  border-radius: 8px;
+  cursor: pointer;
+  font-size: 13px;
+  font-weight: 500;
+  color: #666;
+  transition: all 0.2s;
+  display: flex;
+  align-items: center;
+  gap: 4px;
+}
+
+.layer-btn:hover {
+  border-color: #2196f3;
+  background: #f5f5f5;
+}
+
+.layer-btn.active {
+  border-color: #2196f3;
+  background: #2196f3;
+  color: white;
+}
+
+.map-wrapper {
+  height: 500px;
+  border-radius: 8px;
+  overflow: hidden;
+  border: 2px solid #e0e0e0;
+}
+
+/* Leaflet popup customization */
+.map-popup {
+  font-family: inherit;
+}
+
+.map-popup strong {
+  display: block;
+  margin-bottom: 8px;
+  font-size: 14px;
+  color: #1a1a1a;
+}
+
+.map-popup p {
+  margin: 4px 0;
+  font-size: 13px;
+  color: #666;
+}
+
+.map-popup hr {
+  margin: 8px 0;
+  border: none;
+  border-top: 1px solid #e0e0e0;
+}
+
+.map-info {
+  margin-top: 12px;
+  padding: 12px;
+  background: #f5f5f5;
+  border-radius: 6px;
+}
+
+.map-hint {
+  margin: 0;
+  font-size: 13px;
+  color: #666;
+  text-align: center;
+}
+
+/* Leaflet control customization */
+.leaflet-container {
+  font-family: inherit;
+}
+
+.leaflet-popup-content-wrapper {
+  border-radius: 8px;
+}
+
+.leaflet-popup-tip {
+  background: white;
+}
+
+/* Mobile responsive */
+@media (max-width: 768px) {
+  .weather-map-container {
+    padding: 16px;
+  }
+
+  .map-controls h3 {
+    font-size: 20px;
+  }
+
+  .layer-controls {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .layer-buttons {
+    width: 100%;
+  }
+
+  .layer-btn {
+    flex: 1;
+    justify-content: center;
+    min-width: 0;
+  }
+
+  .map-wrapper {
+    height: 400px;
+  }
+}
+
+@media (max-width: 480px) {
+  .map-wrapper {
+    height: 300px;
+  }
+
+  .layer-btn {
+    padding: 6px 12px;
+    font-size: 12px;
+  }
+}

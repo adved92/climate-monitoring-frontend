@@ -3,7 +3,7 @@
  */
 import axios from 'axios'
 
-const API_BASE_URL = import.meta.env.REACT_APP_API_URL || 'http://localhost:5000/api'
+const API_BASE_URL = import.meta.env.VITE_API_URL || 'http://localhost:8000/api'
 
 const api = axios.create({
   baseURL: API_BASE_URL,
@@ -35,6 +35,9 @@ export const climateAPI = {
   
   getForecast: (lat, lon) => 
     api.get('/climate/forecast', { params: { lat, lon } }),
+  
+  get7DayForecast: (lat, lon) => 
+    api.get('/climate/forecast/7day', { params: { lat, lon } }),
 }
 
 // Air Quality API

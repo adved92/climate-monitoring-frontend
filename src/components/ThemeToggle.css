@@ -1,0 +1,42 @@
+.theme-toggle {
+  display: flex;
+  gap: 4px;
+  background: rgba(255, 255, 255, 0.1);
+  padding: 4px;
+  border-radius: 8px;
+  backdrop-filter: blur(10px);
+}
+
+.theme-btn {
+  background: transparent;
+  border: none;
+  padding: 8px 12px;
+  border-radius: 6px;
+  cursor: pointer;
+  font-size: 18px;
+  transition: all 0.2s;
+  opacity: 0.6;
+}
+
+.theme-btn:hover {
+  opacity: 1;
+  background: rgba(255, 255, 255, 0.1);
+}
+
+.theme-btn.active {
+  opacity: 1;
+  background: rgba(74, 144, 226, 0.2);
+}
+
+/* Dark theme adjustments */
+[data-theme="dark"] .theme-toggle {
+  background: rgba(0, 0, 0, 0.2);
+}
+
+[data-theme="dark"] .theme-btn:hover {
+  background: rgba(255, 255, 255, 0.05);
+}
+
+[data-theme="dark"] .theme-btn.active {
+  background: rgba(74, 144, 226, 0.3);
+}

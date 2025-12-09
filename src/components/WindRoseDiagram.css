@@ -1,0 +1,179 @@
+.wind-rose-diagram {
+  background: white;
+  border-radius: 12px;
+  padding: 24px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  margin: 20px 0;
+}
+
+.wind-rose-header {
+  margin-bottom: 20px;
+}
+
+.wind-rose-header h3 {
+  margin: 0;
+  font-size: 24px;
+  color: #1a1a1a;
+}
+
+.wind-rose-loading,
+.wind-rose-error,
+.wind-rose-no-location {
+  text-align: center;
+  padding: 40px 20px;
+  color: #666;
+}
+
+.wind-rose-error {
+  color: #d32f2f;
+}
+
+.retry-button {
+  margin-top: 16px;
+  padding: 10px 24px;
+  background: #2196f3;
+  color: white;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  font-size: 14px;
+  font-weight: 500;
+}
+
+.retry-button:hover {
+  background: #1976d2;
+}
+
+.current-wind-info {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 16px;
+  padding: 16px;
+  background: #f5f5f5;
+  border-radius: 8px;
+  margin-bottom: 24px;
+  align-items: center;
+}
+
+.wind-info-item {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.wind-label {
+  font-size: 12px;
+  color: #666;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.wind-value {
+  font-size: 18px;
+  font-weight: 700;
+  color: #2196f3;
+}
+
+.wind-category {
+  padding: 8px 16px;
+  border-radius: 20px;
+  font-size: 13px;
+  font-weight: 600;
+  color: white;
+  margin-left: auto;
+}
+
+.wind-rose-chart {
+  margin: 20px 0;
+}
+
+.wind-tooltip {
+  background: white;
+  border: 2px solid #2196f3;
+  border-radius: 8px;
+  padding: 12px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
+}
+
+.tooltip-direction {
+  margin: 0 0 4px 0;
+  font-size: 14px;
+  font-weight: 600;
+  color: #1a1a1a;
+}
+
+.tooltip-frequency {
+  margin: 0;
+  font-size: 13px;
+  color: #666;
+}
+
+.wind-rose-legend {
+  margin-top: 24px;
+  padding: 16px;
+  background: #f5f5f5;
+  border-radius: 8px;
+}
+
+.wind-rose-legend h4 {
+  margin: 0 0 12px 0;
+  font-size: 14px;
+  color: #666;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.legend-items {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 16px;
+}
+
+.legend-item {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.legend-color {
+  width: 20px;
+  height: 20px;
+  border-radius: 4px;
+  border: 1px solid rgba(0, 0, 0, 0.1);
+}
+
+.legend-item span {
+  font-size: 13px;
+  color: #666;
+}
+
+/* Mobile responsive */
+@media (max-width: 768px) {
+  .wind-rose-diagram {
+    padding: 16px;
+  }
+
+  .wind-rose-header h3 {
+    font-size: 20px;
+  }
+
+  .current-wind-info {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .wind-category {
+    margin-left: 0;
+    width: 100%;
+    text-align: center;
+  }
+
+  .wind-rose-chart {
+    margin: 16px 0;
+  }
+
+  .legend-items {
+    flex-direction: column;
+    gap: 8px;
+  }
+}

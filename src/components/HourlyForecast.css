@@ -1,0 +1,281 @@
+.hourly-forecast {
+  background: white;
+  border-radius: 12px;
+  padding: 24px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  margin: 20px 0;
+}
+
+.hourly-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 20px;
+  flex-wrap: wrap;
+  gap: 16px;
+}
+
+.hourly-header h2 {
+  margin: 0;
+  color: #2c3e50;
+  font-size: 24px;
+}
+
+.view-toggle {
+  display: flex;
+  gap: 8px;
+  background: #f0f0f0;
+  padding: 4px;
+  border-radius: 8px;
+}
+
+.view-toggle button {
+  padding: 8px 16px;
+  border: none;
+  background: transparent;
+  border-radius: 6px;
+  cursor: pointer;
+  font-size: 14px;
+  font-weight: 500;
+  color: #666;
+  transition: all 0.3s ease;
+}
+
+.view-toggle button.active {
+  background: white;
+  color: #4a90e2;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.view-toggle button:hover:not(.active) {
+  color: #333;
+}
+
+/* Timeline View */
+.hourly-timeline {
+  display: flex;
+  overflow-x: auto;
+  gap: 16px;
+  padding: 16px 0;
+  scroll-behavior: smooth;
+}
+
+.hourly-timeline::-webkit-scrollbar {
+  height: 8px;
+}
+
+.hourly-timeline::-webkit-scrollbar-track {
+  background: #f1f1f1;
+  border-radius: 4px;
+}
+
+.hourly-timeline::-webkit-scrollbar-thumb {
+  background: #888;
+  border-radius: 4px;
+}
+
+.hourly-timeline::-webkit-scrollbar-thumb:hover {
+  background: #555;
+}
+
+.hour-card {
+  flex: 0 0 auto;
+  width: 140px;
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  border-radius: 12px;
+  padding: 16px;
+  color: white;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.hour-card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+}
+
+.hour-time {
+  text-align: center;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.3);
+  padding-bottom: 8px;
+}
+
+.hour-time .time {
+  font-size: 18px;
+  font-weight: 600;
+}
+
+.hour-time .date {
+  font-size: 12px;
+  opacity: 0.9;
+  margin-top: 4px;
+}
+
+.hour-icon {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.hour-icon img {
+  width: 60px;
+  height: 60px;
+  filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.2));
+}
+
+.hour-temp {
+  text-align: center;
+}
+
+.hour-temp .temp-value {
+  font-size: 28px;
+  font-weight: 700;
+}
+
+.hour-temp .feels-like {
+  font-size: 12px;
+  opacity: 0.9;
+  margin-top: 4px;
+}
+
+.hour-details {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  font-size: 13px;
+  border-top: 1px solid rgba(255, 255, 255, 0.3);
+  padding-top: 8px;
+}
+
+.detail-item {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.detail-item .icon {
+  font-size: 16px;
+}
+
+/* Charts View */
+.hourly-charts {
+  display: flex;
+  flex-direction: column;
+  gap: 32px;
+}
+
+.chart-container {
+  background: #f8f9fa;
+  border-radius: 8px;
+  padding: 20px;
+}
+
+.chart-container h3 {
+  margin: 0 0 16px 0;
+  color: #2c3e50;
+  font-size: 18px;
+}
+
+/* Loading and Error States */
+.loading,
+.error {
+  text-align: center;
+  padding: 40px;
+  color: #666;
+  font-size: 16px;
+}
+
+.error {
+  color: #e74c3c;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  .hourly-forecast {
+    padding: 16px;
+    margin: 16px 0;
+  }
+
+  .hourly-header {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .hourly-header h2 {
+    font-size: 20px;
+  }
+
+  .view-toggle {
+    width: 100%;
+  }
+
+  .view-toggle button {
+    flex: 1;
+  }
+
+  .hour-card {
+    width: 120px;
+    padding: 12px;
+  }
+
+  .hour-icon img {
+    width: 50px;
+    height: 50px;
+  }
+
+  .hour-temp .temp-value {
+    font-size: 24px;
+  }
+
+  .chart-container {
+    padding: 16px;
+  }
+
+  .chart-container h3 {
+    font-size: 16px;
+  }
+}
+
+@media (max-width: 480px) {
+  .hourly-forecast {
+    padding: 12px;
+    border-radius: 8px;
+  }
+
+  .hour-card {
+    width: 100px;
+    padding: 10px;
+    gap: 8px;
+  }
+
+  .hour-time .time {
+    font-size: 16px;
+  }
+
+  .hour-time .date {
+    font-size: 11px;
+  }
+
+  .hour-icon img {
+    width: 40px;
+    height: 40px;
+  }
+
+  .hour-temp .temp-value {
+    font-size: 20px;
+  }
+
+  .hour-temp .feels-like {
+    font-size: 11px;
+  }
+
+  .hour-details {
+    font-size: 11px;
+  }
+
+  .detail-item .icon {
+    font-size: 14px;
+  }
+}
