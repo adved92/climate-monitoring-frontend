@@ -1,0 +1,285 @@
+.provider-status {
+  padding: 20px;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.provider-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 24px;
+}
+
+.provider-header h2 {
+  margin: 0;
+  font-size: 24px;
+  color: #1f2937;
+}
+
+.refresh-btn {
+  padding: 8px 16px;
+  background: #667eea;
+  color: white;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  font-size: 14px;
+  transition: background 0.2s;
+}
+
+.refresh-btn:hover {
+  background: #5568d3;
+}
+
+.health-summary {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+  gap: 16px;
+  margin-bottom: 24px;
+  padding: 20px;
+  background: #f9fafb;
+  border-radius: 8px;
+}
+
+.health-stat {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.health-label {
+  font-size: 12px;
+  color: #6b7280;
+  text-transform: uppercase;
+  font-weight: 600;
+}
+
+.health-value {
+  font-size: 24px;
+  font-weight: 700;
+  color: #1f2937;
+}
+
+.health-stat.healthy .health-value {
+  color: #10b981;
+}
+
+.health-stat.degraded .health-value {
+  color: #f59e0b;
+}
+
+.health-stat.failed .health-value {
+  color: #ef4444;
+}
+
+.providers-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+  gap: 20px;
+  margin-bottom: 24px;
+}
+
+.provider-card {
+  background: white;
+  border: 1px solid #e5e7eb;
+  border-radius: 8px;
+  padding: 20px;
+  transition: box-shadow 0.2s;
+}
+
+.provider-card:hover {
+  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+}
+
+.provider-card-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 16px;
+  padding-bottom: 12px;
+  border-bottom: 1px solid #e5e7eb;
+}
+
+.provider-name-section {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.status-indicator {
+  width: 28px;
+  height: 28px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: white;
+  font-weight: bold;
+  font-size: 16px;
+}
+
+.provider-card-header h3 {
+  margin: 0;
+  font-size: 18px;
+  color: #1f2937;
+}
+
+.provider-priority {
+  font-size: 12px;
+  color: #6b7280;
+  background: #f3f4f6;
+  padding: 4px 8px;
+  border-radius: 4px;
+}
+
+.provider-stats {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  margin-bottom: 16px;
+}
+
+.stat-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-size: 14px;
+}
+
+.stat-label {
+  color: #6b7280;
+}
+
+.stat-value {
+  font-weight: 600;
+  color: #1f2937;
+}
+
+.failure-count {
+  color: #ef4444;
+}
+
+.last-failure {
+  font-size: 12px;
+  color: #9ca3af;
+}
+
+.provider-progress {
+  margin-top: 12px;
+}
+
+.progress-bar {
+  width: 100%;
+  height: 8px;
+  background: #e5e7eb;
+  border-radius: 4px;
+  overflow: hidden;
+}
+
+.progress-fill {
+  height: 100%;
+  transition: width 0.3s ease;
+}
+
+.provider-info {
+  background: #eff6ff;
+  border: 1px solid #bfdbfe;
+  border-radius: 8px;
+  padding: 16px;
+  margin-top: 24px;
+}
+
+.provider-info p {
+  margin: 8px 0;
+  font-size: 14px;
+  color: #1e40af;
+  line-height: 1.6;
+}
+
+.provider-info strong {
+  font-weight: 600;
+}
+
+.loading,
+.error {
+  text-align: center;
+  padding: 40px;
+  font-size: 16px;
+  color: #6b7280;
+}
+
+.error {
+  color: #ef4444;
+}
+
+/* Dark mode support */
+@media (prefers-color-scheme: dark) {
+  .provider-status {
+    color: #f3f4f6;
+  }
+
+  .provider-header h2 {
+    color: #f3f4f6;
+  }
+
+  .health-summary {
+    background: #1f2937;
+  }
+
+  .health-value {
+    color: #f3f4f6;
+  }
+
+  .provider-card {
+    background: #1f2937;
+    border-color: #374151;
+  }
+
+  .provider-card-header h3 {
+    color: #f3f4f6;
+  }
+
+  .stat-value {
+    color: #f3f4f6;
+  }
+
+  .provider-priority {
+    background: #374151;
+    color: #9ca3af;
+  }
+
+  .progress-bar {
+    background: #374151;
+  }
+
+  .provider-info {
+    background: #1e3a5f;
+    border-color: #1e40af;
+  }
+
+  .provider-info p {
+    color: #93c5fd;
+  }
+}
+
+/* Responsive design */
+@media (max-width: 768px) {
+  .provider-status {
+    padding: 16px;
+  }
+
+  .provider-header {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 12px;
+  }
+
+  .providers-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .health-summary {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}

@@ -1,0 +1,160 @@
+.weather-recommendations {
+  background: var(--card-bg, #fff);
+  padding: 24px;
+  border-radius: 12px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  margin: 20px 0;
+}
+
+.weather-recommendations h2 {
+  margin: 0 0 8px 0;
+  color: var(--text-primary, #333);
+  font-size: 1.5rem;
+}
+
+.subtitle {
+  margin: 0 0 20px 0;
+  color: var(--text-secondary, #666);
+  font-size: 0.95rem;
+}
+
+.recommendations-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+  gap: 16px;
+}
+
+.recommendation-card {
+  display: flex;
+  gap: 15px;
+  padding: 16px;
+  border-radius: 10px;
+  border-left: 4px solid;
+  transition: all 0.3s;
+  background: var(--card-bg, #fff);
+}
+
+.recommendation-card:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+}
+
+.priority-critical {
+  border-left-color: #d32f2f;
+  background: linear-gradient(135deg, #ffebee 0%, #fff 100%);
+}
+
+.priority-high {
+  border-left-color: #f57c00;
+  background: linear-gradient(135deg, #fff3e0 0%, #fff 100%);
+}
+
+.priority-medium {
+  border-left-color: #fbc02d;
+  background: linear-gradient(135deg, #fffde7 0%, #fff 100%);
+}
+
+.priority-low {
+  border-left-color: #388e3c;
+  background: linear-gradient(135deg, #e8f5e9 0%, #fff 100%);
+}
+
+.rec-icon {
+  font-size: 2.5rem;
+  flex-shrink: 0;
+}
+
+.rec-content {
+  flex: 1;
+}
+
+.rec-category {
+  font-size: 0.75rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  color: var(--text-secondary, #666);
+  margin-bottom: 4px;
+}
+
+.rec-title {
+  margin: 0 0 8px 0;
+  font-size: 1.1rem;
+  color: var(--text-primary, #333);
+}
+
+.rec-advice {
+  margin: 0;
+  font-size: 0.9rem;
+  line-height: 1.5;
+  color: var(--text-secondary, #555);
+}
+
+/* Dark Theme */
+[data-theme="dark"] .weather-recommendations {
+  background: #2d2d2d;
+}
+
+[data-theme="dark"] .weather-recommendations h2 {
+  color: #ffffff;
+}
+
+[data-theme="dark"] .subtitle {
+  color: #b0b0b0;
+}
+
+[data-theme="dark"] .recommendation-card {
+  background: #3a3a3a;
+}
+
+[data-theme="dark"] .priority-critical {
+  background: linear-gradient(135deg, #4a2020 0%, #3a3a3a 100%);
+}
+
+[data-theme="dark"] .priority-high {
+  background: linear-gradient(135deg, #4a3520 0%, #3a3a3a 100%);
+}
+
+[data-theme="dark"] .priority-medium {
+  background: linear-gradient(135deg, #4a4520 0%, #3a3a3a 100%);
+}
+
+[data-theme="dark"] .priority-low {
+  background: linear-gradient(135deg, #204a20 0%, #3a3a3a 100%);
+}
+
+[data-theme="dark"] .rec-category {
+  color: #b0b0b0;
+}
+
+[data-theme="dark"] .rec-title {
+  color: #ffffff;
+}
+
+[data-theme="dark"] .rec-advice {
+  color: #d0d0d0;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  .weather-recommendations {
+    padding: 16px;
+  }
+
+  .weather-recommendations h2 {
+    font-size: 1.3rem;
+  }
+
+  .recommendations-grid {
+    grid-template-columns: 1fr;
+    gap: 12px;
+  }
+
+  .recommendation-card {
+    padding: 12px;
+  }
+
+  .rec-icon {
+    font-size: 2rem;
+  }
+}

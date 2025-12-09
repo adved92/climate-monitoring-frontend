@@ -1,4 +1,5 @@
 import { useState } from 'react'
+import { useTranslation } from 'react-i18next'
 import './App.css'
 import LocationSearch from './components/LocationSearch'
 import ClimateCard from './components/ClimateCard'
@@ -7,9 +8,19 @@ import HourlyForecast from './components/HourlyForecast'
 import AirQualityCard from './components/AirQualityCard'
 import UVIndexCard from './components/UVIndexCard'
 import EarthquakeTracker from './components/EarthquakeTracker'
+import ClimateComparison from './components/ClimateComparison'
+import ThemeToggle from './components/ThemeToggle'
+import LanguageSelector from './components/LanguageSelector'
+import LocationHistory from './components/LocationHistory'
+// New Advanced Features
+import ProviderStatus from './components/ProviderStatus'
+import AIPredictions from './components/AIPredictions'
+import WeatherChatbot from './components/WeatherChatbot'
+import SmartAlerts from './components/SmartAlerts'
 import { climateAPI, airQualityAPI, disasterAPI } from './services/api'
 
 function App() {
+  const { t } = useTranslation()
   const [climateData, setClimateData] = useState(null)
   const [forecastData, setForecastData] = useState(null)
   const [loading, setLoading] = useState(false)
@@ -18,6 +29,7 @@ function App() {
   const [forecastError, setForecastError] = useState(null)
   const [currentLocation, setCurrentLocation] = useState(null)
   const [coordinates, setCoordinates] = useState(null)
+  const [showComparison, setShowComparison] = useState(false)
 
   const handleSearch = async (searchParams) => {
     setLoading(true)
@@ -66,12 +78,27 @@ function App() {
   return (
     <div className="App">
       <header className="App-header">
-        <h1>🌍 Climate Monitoring System</h1>
-        <p>Check weather anywhere in the world</p>
+        <h1>🌍 {t('appTitle')}</h1>
+        <p>{t('appSubtitle')}</p>
+        <div className="header-controls">
+          <ThemeToggle />
+          <LanguageSelector />
+          <button 
+            onClick={() => setShowComparison(!showComparison)}
+            className="comparison-toggle-btn"
+          >
+            {showComparison ? '📊 Hide Comparison' : '🌐 Compare Locations'}
+          </button>
+        </div>
       </header>
       
       <main className="App-main">
-        <LocationSearch onSearch={handleSearch} />
+        {showComparison ? (
+          <ClimateComparison />
+        ) : (
+          <>
+            <LocationSearch onSearch={handleSearch} />
+            <LocationHistory onSelectLocation={handleSearch} />
         
         {currentLocation && (
           <div className="current-location">
@@ -122,10 +149,12 @@ function App() {
             longitude={coordinates.lon} 
           />
         )}
+          </>
+        )}
       </main>
       
       <footer className="App-footer">
-        <p>Powered by OpenWeatherMap, USGS, and NOAA</p>
+        <p>{t('poweredBy')}</p>
       </footer>
     </div>
   )

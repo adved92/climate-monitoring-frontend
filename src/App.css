@@ -1,66 +1,225 @@
+/* Root Variables */
+:root {
+  --primary-color: #4CAF50;
+  --primary-hover: #45a049;
+  --secondary-color: #667eea;
+  --background-gradient: linear-gradient(to bottom, #f0f4f8, #d9e2ec);
+  --header-gradient: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  --text-primary: #333;
+  --text-secondary: #666;
+  --card-bg: #ffffff;
+  --border-color: #ddd;
+  --shadow: 0 4px 16px rgba(0, 0, 0, 0.1);
+  --error-color: #f44336;
+  --warning-color: #ff9800;
+  --success-color: #4CAF50;
+}
+
+/* Dark Theme Variables */
+[data-theme="dark"] {
+  --background-gradient: linear-gradient(to bottom, #1a1a1a, #2d2d2d);
+  --header-gradient: linear-gradient(135deg, #4a5568 0%, #2d3748 100%);
+  --text-primary: #ffffff;
+  --text-secondary: #b0b0b0;
+  --card-bg: #2d2d2d;
+  --border-color: #444;
+  --shadow: 0 4px 16px rgba(0, 0, 0, 0.3);
+}
+
 .App {
   min-height: 100vh;
-  background: linear-gradient(to bottom, #f0f4f8, #d9e2ec);
+  background: var(--background-gradient);
+  transition: background 0.3s ease;
 }
 
 .App-header {
-  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  background: var(--header-gradient);
   color: white;
   padding: 32px 24px;
   text-align: center;
-  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.1);
+  box-shadow: var(--shadow);
+  position: relative;
 }
 
 .App-header h1 {
   margin: 0 0 8px 0;
-  font-size: 2.5rem;
+  font-size: clamp(1.8rem, 5vw, 2.5rem);
   font-weight: 700;
 }
 
 .App-header p {
   margin: 0;
-  font-size: 1.1rem;
+  font-size: clamp(0.9rem, 3vw, 1.1rem);
   opacity: 0.95;
 }
 
+.header-controls {
+  display: flex;
+  justify-content: center;
+  gap: 20px;
+  margin-top: 20px;
+  flex-wrap: wrap;
+}
+
 .App-main {
-  max-width: 1200px;
+  max-width: 1400px;
   margin: 0 auto;
-  padding: 32px 24px;
+  padding: clamp(16px, 4vw, 32px);
 }
 
 .current-location {
   text-align: center;
   margin-bottom: 24px;
-  font-size: 18px;
-  color: #333;
+  font-size: clamp(16px, 3vw, 18px);
+  color: var(--text-primary);
   font-weight: 500;
+  transition: color 0.3s ease;
 }
 
 .data-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-  gap: 24px;
+  grid-template-columns: repeat(auto-fit, minmax(min(300px, 100%), 1fr));
+  gap: clamp(16px, 3vw, 24px);
   margin-top: 24px;
 }
 
 .App-footer {
   text-align: center;
   padding: 24px;
-  color: #666;
-  font-size: 14px;
+  color: var(--text-secondary);
+  font-size: clamp(12px, 2vw, 14px);
+  transition: color 0.3s ease;
 }
 
+/* Responsive Breakpoints */
+
+/* Tablet */
+@media (max-width: 1024px) {
+  .App-header {
+    padding: 24px 20px;
+  }
+
+  .App-main {
+    padding: 24px 16px;
+  }
+
+  .data-grid {
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 20px;
+  }
+}
+
+/* Mobile */
 @media (max-width: 768px) {
+  .App-header {
+    padding: 20px 16px;
+  }
+
   .App-header h1 {
-    font-size: 2rem;
+    font-size: 1.8rem;
+  }
+
+  .App-header p {
+    font-size: 0.95rem;
+  }
+
+  .header-controls {
+    flex-direction: column;
+    gap: 10px;
   }
   
   .App-main {
-    padding: 16px;
+    padding: 16px 12px;
   }
   
   .data-grid {
     grid-template-columns: 1fr;
+    gap: 16px;
+  }
+
+  .current-location {
+    font-size: 16px;
+    margin-bottom: 16px;
+  }
+}
+
+/* Small Mobile */
+@media (max-width: 480px) {
+  .App-header {
+    padding: 16px 12px;
+  }
+
+  .App-header h1 {
+    font-size: 1.5rem;
+  }
+
+  .App-header p {
+    font-size: 0.85rem;
+  }
+
+  .App-main {
+    padding: 12px 8px;
+  }
+
+  .data-grid {
+    gap: 12px;
+  }
+}
+
+/* Accessibility */
+@media (prefers-reduced-motion: reduce) {
+  * {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}
+
+/* Print Styles */
+@media print {
+  .App-header,
+  .App-footer,
+  .header-controls {
+    display: none;
+  }
+
+  .App {
+    background: white;
+  }
+
+  .App-main {
+    max-width: 100%;
+    padding: 0;
+  }
+}
+
+
+/* Comparison Toggle Button */
+.comparison-toggle-btn {
+  padding: 10px 20px;
+  background: var(--primary-color);
+  color: white;
+  border: none;
+  border-radius: 8px;
+  font-size: 0.95rem;
+  cursor: pointer;
+  transition: all 0.3s;
+  white-space: nowrap;
+}
+
+.comparison-toggle-btn:hover {
+  background: var(--primary-hover);
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(76, 175, 80, 0.3);
+}
+
+.comparison-toggle-btn:active {
+  transform: translateY(0);
+}
+
+@media (max-width: 768px) {
+  .comparison-toggle-btn {
+    width: 100%;
+    padding: 12px;
   }
 }
