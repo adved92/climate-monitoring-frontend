@@ -15,10 +15,26 @@ const api = axios.create({
 
 // Response interceptor for error handling
 api.interceptors.response.use(
-  (response) => response.data,
+  (response) => {
+    console.log('API Response received:', response.status, response.data);
+    return response.data;
+  },
   (error) => {
-    console.error('API Error:', error)
-    throw error
+    console.error('API Error:', error);
+    
+    if (error.response) {
+      // Server responded with error status
+      console.error('Response error:', error.response.status, error.response.data);
+      throw new Error(`Server error: ${error.response.status} - ${error.response.data?.message || 'Unknown error'}`);
+    } else if (error.request) {
+      // Request was made but no response received
+      console.error('Network error:', error.request);
+      throw new Error('Network error: Unable to connect to server');
+    } else {
+      // Something else happened
+      console.error('Request setup error:', error.message);
+      throw new Error(`Request error: ${error.message}`);
+    }
   }
 )
 

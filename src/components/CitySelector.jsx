@@ -14,20 +14,35 @@ const citiesByState = {
     { name: 'San Diego', lat: 32.7157, lon: -117.1611 }
   ],
   'Tokyo': [
+    { name: 'Tokyo', lat: 35.6762, lon: 139.6503 },
     { name: 'Shibuya', lat: 35.6595, lon: 139.7004 },
-    { name: 'Shinjuku', lat: 35.6938, lon: 139.7034 },
-    { name: 'Akihabara', lat: 35.6984, lon: 139.7731 }
+    { name: 'Shinjuku', lat: 35.6938, lon: 139.7034 }
   ],
   'England': [
     { name: 'London', lat: 51.5074, lon: -0.1278 },
     { name: 'Manchester', lat: 53.4808, lon: -2.2426 },
     { name: 'Birmingham', lat: 52.4862, lon: -1.8904 }
   ],
+  'Maharashtra': [
+    { name: 'Mumbai', lat: 19.0760, lon: 72.8777 },
+    { name: 'Pune', lat: 18.5204, lon: 73.8567 },
+    { name: 'Nagpur', lat: 21.1458, lon: 79.0882 }
+  ],
+  'New York': [
+    { name: 'New York', lat: 40.7128, lon: -74.0060 },
+    { name: 'Buffalo', lat: 42.8864, lon: -78.8784 },
+    { name: 'Rochester', lat: 43.1566, lon: -77.6088 }
+  ],
+  'Texas': [
+    { name: 'Houston', lat: 29.7604, lon: -95.3698 },
+    { name: 'Dallas', lat: 32.7767, lon: -96.7970 },
+    { name: 'Austin', lat: 30.2672, lon: -97.7431 }
+  ],
   // Default cities for states without specific data
   'default': [
-    { name: 'Capital City', lat: 0, lon: 0 },
-    { name: 'Major City', lat: 0, lon: 0 },
-    { name: 'Coastal City', lat: 0, lon: 0 }
+    { name: 'New York', lat: 40.7128, lon: -74.0060 },
+    { name: 'London', lat: 51.5074, lon: -0.1278 },
+    { name: 'Tokyo', lat: 35.6762, lon: 139.6503 }
   ]
 };
 

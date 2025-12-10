@@ -1,47 +1,85 @@
 .use-my-location {
-  margin: 12px 0;
+  margin: 1rem 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 }
 
 .location-btn {
   display: flex;
   align-items: center;
-  gap: 8px;
-  padding: 12px 20px;
-  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-  color: white;
-  border: none;
-  border-radius: 8px;
+  gap: 0.75rem;
+  padding: 1rem 2rem;
+  background: var(--card-gradient);
+  color: var(--text-primary);
+  border: 1px solid var(--border-color);
+  border-radius: 20px;
   cursor: pointer;
-  font-size: 16px;
-  font-weight: 500;
-  transition: all 0.3s ease;
-  box-shadow: 0 4px 12px rgba(102, 126, 234, 0.3);
-  width: 100%;
+  font-size: 1.1rem;
+  font-weight: 600;
+  transition: var(--transition-bounce);
+  box-shadow: var(--neu-shadow-outset);
+  backdrop-filter: blur(15px);
   justify-content: center;
+  position: relative;
+  overflow: hidden;
+  min-width: 200px;
+}
+
+.location-btn::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: linear-gradient(135deg, 
+    rgba(33, 150, 243, 0.1) 0%, 
+    rgba(76, 175, 80, 0.1) 100%);
+  opacity: 0;
+  transition: var(--transition-smooth);
+  pointer-events: none;
 }
 
 .location-btn:hover:not(:disabled) {
-  transform: translateY(-2px);
-  box-shadow: 0 6px 16px rgba(102, 126, 234, 0.4);
+  transform: translateY(-4px) scale(1.02);
+  box-shadow: var(--shadow-strong);
+  border-color: var(--primary-blue);
+  color: var(--primary-blue);
+}
+
+.location-btn:hover:not(:disabled)::before {
+  opacity: 1;
 }
 
 .location-btn:active:not(:disabled) {
-  transform: translateY(0);
+  transform: translateY(-2px) scale(1.01);
+  transition: var(--transition-smooth);
 }
 
 .location-btn:disabled {
-  opacity: 0.7;
+  opacity: 0.6;
   cursor: not-allowed;
+  transform: none;
 }
 
 .location-btn .icon {
-  font-size: 18px;
+  font-size: 1.25rem;
+  position: relative;
+  z-index: 1;
+  transition: var(--transition-smooth);
+}
+
+.location-btn:hover .icon {
+  transform: scale(1.1);
 }
 
 .location-btn .spinner {
   display: inline-block;
   animation: spin 1s linear infinite;
-  font-size: 18px;
+  font-size: 1.25rem;
+  position: relative;
+  z-index: 1;
 }
 
 @keyframes spin {
@@ -54,14 +92,18 @@
 }
 
 .location-error {
-  margin-top: 8px;
-  padding: 12px;
-  background: #fee;
-  border: 1px solid #fcc;
-  border-radius: 6px;
-  color: #c33;
-  font-size: 14px;
+  margin-top: 1rem;
+  padding: 1rem 1.5rem;
+  background: var(--card-gradient);
+  border: 1px solid var(--error-color);
+  border-radius: 16px;
+  color: var(--error-color);
+  font-size: 0.9rem;
   line-height: 1.4;
+  text-align: center;
+  box-shadow: var(--neu-shadow-outset);
+  backdrop-filter: blur(10px);
+  max-width: 300px;
 }
 
 /* Dark theme adjustments */
