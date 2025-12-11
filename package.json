@@ -1,7 +1,7 @@
 {
-  "name": "energy-conservation-frontend",
+  "name": "climate-monitoring-frontend",
   "version": "1.0.0",
-  "description": "Energy Conservation System - Frontend",
+  "description": "Climate Monitoring System - Frontend",
   "private": true,
   "type": "module",
   "scripts": {

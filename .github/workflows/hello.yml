@@ -1,0 +1,23 @@
+name: Hello World Frontend
+
+on:
+  push:
+  pull_request:
+  workflow_dispatch:
+
+jobs:
+  hello:
+    runs-on: ubuntu-latest
+    
+    steps:
+    - name: Checkout
+      uses: actions/checkout@v4
+    
+    - name: Hello World
+      run: |
+        echo "🎉 Hello from Climate Monitoring Frontend!"
+        echo "📅 Triggered at: $(date)"
+        echo "🌟 Repository: ${{ github.repository }}"
+        echo "🔄 Event: ${{ github.event_name }}"
+        echo "🌿 Branch: ${{ github.ref_name }}"
+        echo "✅ GitHub Actions is working!"

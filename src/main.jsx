@@ -1,14 +1,13 @@
-import React from 'react'
-import ReactDOM from 'react-dom/client'
-import App from './App.jsx'
-import './index.css'
-import './i18n/config'
-import { ThemeProvider } from './context/ThemeContext'
+import React from 'react';
+import ReactDOM from 'react-dom/client';
+import App from './App';
+import ErrorBoundary from './components/ErrorBoundary';
+import './index.css';
 
 ReactDOM.createRoot(document.getElementById('root')).render(
   <React.StrictMode>
-    <ThemeProvider>
+    <ErrorBoundary>
       <App />
-    </ThemeProvider>
-  </React.StrictMode>,
-)
+    </ErrorBoundary>
+  </React.StrictMode>
+);

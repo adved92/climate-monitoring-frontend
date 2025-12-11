@@ -14,7 +14,15 @@ const ClimateCard = ({ data, loading, error }) => {
   }
 
   if (!data) {
-    return <div className="climate-card">No data available</div>
+    return (
+      <div className="climate-card placeholder">
+        <h2>🌤️ Current Weather</h2>
+        <div className="placeholder-content">
+          <div className="placeholder-temp">--°</div>
+          <div className="placeholder-text">Loading weather data...</div>
+        </div>
+      </div>
+    )
   }
 
   const { temperature, humidity, precipitation, conditions, season, location } = data

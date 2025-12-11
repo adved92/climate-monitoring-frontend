@@ -1,6 +1,7 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useCallback } from 'react';
 import { LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, Legend, ResponsiveContainer, BarChart, Bar } from 'recharts';
 import './HourlyForecast.css';
+import { climateAPI } from '../services/api';
 
 const HourlyForecast = ({ latitude, longitude }) => {
   const [hourlyData, setHourlyData] = useState([]);
@@ -8,39 +9,36 @@ const HourlyForecast = ({ latitude, longitude }) => {
   const [error, setError] = useState(null);
   const [viewMode, setViewMode] = useState('timeline'); // 'timeline' or 'chart'
 
-  useEffect(() => {
-    if (latitude && longitude) {
-      fetchHourlyForecast();
-    }
-  }, [latitude, longitude]);
-
-  const fetchHourlyForecast = async () => {
+  const fetchHourlyForecast = useCallback(async () => {
     setLoading(true);
     setError(null);
 
     try {
-      const response = await fetch(
-        `http://localhost:8000/api/climate/forecast/hourly?lat=${latitude}&lon=${longitude}`
-      );
-
-      if (!response.ok) {
-        throw new Error('Failed to fetch hourly forecast');
-      }
-
-      const result = await response.json();
+      const result = await climateAPI.getHourlyForecast(latitude, longitude);
       
-      if (result.success && result.data) {
+      if (result && result.success && result.data) {
+        setHourlyData(result.data);
+      } else if (result && Array.isArray(result)) {
+        // Handle case where data is returned directly as array
+        setHourlyData(result);
+      } else if (result && result.data && Array.isArray(result.data)) {
         setHourlyData(result.data);
       } else {
         throw new Error('Invalid response format');
       }
     } catch (err) {
       console.error('Error fetching hourly forecast:', err);
-      setError(err.message);
+      setError(err.message || 'Failed to fetch hourly forecast');
     } finally {
       setLoading(false);
     }
-  };
+  }, [latitude, longitude]);
+
+  useEffect(() => {
+    if (latitude && longitude) {
+      fetchHourlyForecast();
+    }
+  }, [latitude, longitude, fetchHourlyForecast]);
 
   const formatTime = (datetime) => {
     const date = new Date(datetime);

@@ -1,44 +1,40 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useCallback } from 'react';
 import './AirQualityCard.css';
+import { airQualityAPI } from '../services/api';
 
 const AirQualityCard = ({ latitude, longitude }) => {
   const [aqiData, setAqiData] = useState(null);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
 
-  useEffect(() => {
-    if (latitude && longitude) {
-      fetchAirQuality();
-    }
-  }, [latitude, longitude]);
-
-  const fetchAirQuality = async () => {
+  const fetchAirQuality = useCallback(async () => {
     setLoading(true);
     setError(null);
 
     try {
-      const response = await fetch(
-        `http://localhost:8000/api/climate/air-quality?lat=${latitude}&lon=${longitude}`
-      );
-
-      if (!response.ok) {
-        throw new Error('Failed to fetch air quality data');
-      }
-
-      const result = await response.json();
+      const result = await airQualityAPI.get(latitude, longitude);
       
-      if (result.success && result.data) {
+      if (result && result.success && result.data) {
+        setAqiData(result.data);
+      } else if (result && result.data) {
+        // Handle case where success flag might not be present
         setAqiData(result.data);
       } else {
         throw new Error('Invalid response format');
       }
     } catch (err) {
       console.error('Error fetching air quality:', err);
-      setError(err.message);
+      setError(err.message || 'Failed to fetch air quality data');
     } finally {
       setLoading(false);
     }
-  };
+  }, [latitude, longitude]);
+
+  useEffect(() => {
+    if (latitude && longitude) {
+      fetchAirQuality();
+    }
+  }, [latitude, longitude, fetchAirQuality]);
 
   const getAQIDescription = (level) => {
     const descriptions = {
@@ -94,9 +90,11 @@ const AirQualityCard = ({ latitude, longitude }) => {
     <div className="air-quality-card">
       <div className="aqi-header">
         <h2>Air Quality Index</h2>
-        <div className="aqi-timestamp">
-          Updated: {new Date(aqiData.timestamp).toLocaleTimeString()}
-        </div>
+        {aqiData.timestamp && (
+          <div className="aqi-timestamp">
+            Updated: {new Date(aqiData.timestamp).toLocaleTimeString()}
+          </div>
+        )}
       </div>
 
       <div className="aqi-main">
@@ -113,19 +111,21 @@ const AirQualityCard = ({ latitude, longitude }) => {
         </div>
       </div>
 
-      <div className="pollutants-section">
-        <h3>Pollutant Breakdown</h3>
-        <div className="pollutants-grid">
-          {Object.entries(aqiData.pollutants).map(([key, value]) => (
-            <div key={key} className="pollutant-item">
-              <div className="pollutant-name">{getPollutantName(key)}</div>
-              <div className="pollutant-value">
-                {value} {getPollutantUnit(key)}
+      {aqiData.pollutants && Object.keys(aqiData.pollutants).length > 0 && (
+        <div className="pollutants-section">
+          <h3>Pollutant Breakdown</h3>
+          <div className="pollutants-grid">
+            {Object.entries(aqiData.pollutants).map(([key, value]) => (
+              <div key={key} className="pollutant-item">
+                <div className="pollutant-name">{getPollutantName(key)}</div>
+                <div className="pollutant-value">
+                  {value} {getPollutantUnit(key)}
+                </div>
               </div>
-            </div>
-          ))}
+            ))}
+          </div>
         </div>
-      </div>
+      )}
 
       {aqiData.health_recommendations && aqiData.health_recommendations.length > 0 && (
         <div className="health-recommendations">

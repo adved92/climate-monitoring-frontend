@@ -1,26 +1,41 @@
-# Multi-stage build for production-ready frontend
+# Multi-stage build with better error handling
 FROM node:18-alpine AS builder
 
 WORKDIR /app
 
 # Install system dependencies
-RUN apk add --no-cache libc6-compat
+RUN apk add --no-cache libc6-compat git
 
-# Copy package files
+# Copy package files first
 COPY package*.json ./
 
-# Install all dependencies (including dev dependencies for build)
-RUN npm install
+# Clear npm cache and install dependencies
+RUN npm cache clean --force
+RUN npm install --legacy-peer-deps
 
 # Copy source code
 COPY . .
 
-# Accept build arguments
-ARG VITE_API_URL=http://localhost:8000/api
-ENV VITE_API_URL=$VITE_API_URL
+# Create a minimal vite config for production
+RUN echo 'import { defineConfig } from "vite"
+import react from "@vitejs/plugin-react"
 
-# Build the application for production
-RUN npm run build
+export default defineConfig({
+  plugins: [react()],
+  build: {
+    outDir: "dist",
+    sourcemap: false,
+    minify: true,
+    rollupOptions: {
+      output: {
+        manualChunks: undefined
+      }
+    }
+  }
+})' > vite.config.js
+
+# Build with verbose output
+RUN npm run build -- --mode production
 
 # Production stage with nginx
 FROM nginx:alpine
