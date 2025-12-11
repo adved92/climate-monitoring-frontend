@@ -37,12 +37,11 @@ jobs:
       uses: actions/setup-node@v4
       with:
         node-version: '18'
-        cache: 'npm'
     
     - name: 📦 Install Dependencies
       run: |
         echo "📦 Installing dependencies..."
-        npm ci
+        npm install
         echo "✅ Dependencies installed successfully!"
     
     - name: 🔍 Dependency Check
