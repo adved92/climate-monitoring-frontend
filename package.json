@@ -19,6 +19,7 @@
     "react-dom": "^18.2.0",
     "react-router-dom": "^6.20.1",
     "axios": "^1.6.2",
+    "qs": "^6.11.2",
     "recharts": "^2.10.3",
     "@tanstack/react-query": "^5.14.2",
     "leaflet": "^1.9.4",
@@ -28,7 +29,9 @@
     "i18next-browser-languagedetector": "^7.2.0",
     "workbox-window": "^7.0.0",
     "react-beautiful-dnd": "^13.1.1",
-    "date-fns": "^2.30.0"
+    "date-fns": "^2.30.0",
+    "chart.js": "^4.4.0",
+    "react-chartjs-2": "^5.2.0"
   },
   "devDependencies": {
     "@types/react": "^18.2.43",

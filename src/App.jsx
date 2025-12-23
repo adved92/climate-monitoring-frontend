@@ -1,126 +1,175 @@
 import React, { useState, useEffect } from 'react';
 import './App.css';
-import ClimateCard from './components/ClimateCard';
-import ForecastDisplay from './components/ForecastDisplay';
-import LocationSearch from './components/LocationSearch';
-import AirQualityCard from './components/AirQualityCard';
-import HourlyForecast from './components/HourlyForecast';
-import { climateAPI } from './services/api';
+import EnhancedLocationSelector from './components/EnhancedLocationSelector';
+import CityDashboard from './components/CityDashboard';
+import IoTDashboard from './components/IoTDashboard';
+import GlobalWeatherSearch from './components/GlobalWeatherSearch';
+import WeatherDatabaseViewer from './components/WeatherDatabaseViewer';
+import IoTReportsNotificationDashboard from './components/IoTReportsNotificationDashboard';
+import UINotificationCenter from './components/UINotificationCenter';
+import IoTToolsCatalog from './components/IoTToolsCatalog';
+import IoTReportsDashboard from './components/IoTReportsDashboard';
+
 
 function App() {
-  const [currentWeather, setCurrentWeather] = useState(null);
-  const [forecast, setForecast] = useState(null);
-  const [loading, setLoading] = useState(false);
-  const [error, setError] = useState(null);
-  const [currentLocation, setCurrentLocation] = useState(null);
-  const [coordinates, setCoordinates] = useState(null);
-
-  // Default location (New York)
-  const defaultLocation = { lat: 40.7128, lon: -74.0060, name: 'New York' };
-
-  useEffect(() => {
-    // Load default location on startup
-    handleLocationSearch({ type: 'coordinates', ...defaultLocation });
-  }, []);
-
-  const handleLocationSearch = async (searchParams) => {
-    setLoading(true);
-    setError(null);
-    
-    try {
-      let weatherData;
-      let forecastData;
-      let coords = null;
-      
-      if (searchParams.type === 'city') {
-        weatherData = await climateAPI.getByCity(searchParams.city);
-        // For forecast, we need coordinates, so we'll use the returned coordinates
-        if (weatherData && weatherData.location) {
-          coords = { lat: weatherData.location.lat, lon: weatherData.location.lon };
-          forecastData = await climateAPI.get7DayForecast(coords.lat, coords.lon);
-        }
-      } else if (searchParams.type === 'coordinates') {
-        coords = { lat: searchParams.lat, lon: searchParams.lon };
-        weatherData = await climateAPI.getByCoordinates(coords.lat, coords.lon);
-        forecastData = await climateAPI.get7DayForecast(coords.lat, coords.lon);
-      }
-
-      setCurrentWeather(weatherData);
-      setForecast(forecastData?.forecast || []);
-      setCoordinates(coords);
-      setCurrentLocation(searchParams.name || weatherData?.location?.name || 'Unknown Location');
-      
-    } catch (err) {
-      console.error('Error fetching weather data:', err);
-      setError(err.message || 'Failed to fetch weather data. Please check if the backend server is running.');
-    } finally {
-      setLoading(false);
-    }
+  // Check URL hash for initial view
+  const getInitialView = () => {
+    const hash = window.location.hash.replace('#', '').split('?')[0];
+    return hash || 'home';
   };
 
-  const handleRetry = () => {
-    handleLocationSearch({ type: 'coordinates', ...defaultLocation });
+  const [selectedCity, setSelectedCity] = useState(null);
+  const [currentView, setCurrentView] = useState(getInitialView()); // 'home', 'climate', 'global', 'iot', 'database', 'reports', 'notifications', 'iot-reports'
+  const [navigationPath, setNavigationPath] = useState([]); // For hierarchical navigation
+
+  // Listen for hash changes
+  useEffect(() => {
+    const handleHashChange = () => {
+      const newView = getInitialView();
+      setCurrentView(newView);
+    };
+
+    window.addEventListener('hashchange', handleHashChange);
+    return () => window.removeEventListener('hashchange', handleHashChange);
+  }, []);
+
+
+  const handleCitySelect = (locationData) => {
+    setSelectedCity(locationData);
+    setCurrentView('city');
+  };
+
+  const handleBackToSelector = () => {
+    setSelectedCity(null);
+    setCurrentView('location');
+  };
+
+  const handleViewChange = (view) => {
+    window.location.hash = view === 'home' ? '' : `#${view}`;
+    setCurrentView(view);
+    setSelectedCity(null);
+    setNavigationPath([]);
+  };
+
+  const handleBackToHome = () => {
+    window.location.hash = '';
+    setCurrentView('home');
+    setSelectedCity(null);
+    setNavigationPath([]);
   };
 
   return (
     <div className="app">
-      <div className="dashboard-container">
-        <div className="dashboard-header">
-          <div>
-            <h1>🌍 Climate Monitoring System</h1>
-            {currentLocation && (
-              <p className="current-location">📍 {currentLocation}</p>
-            )}
-          </div>
+      {/* Navigation Header */}
+      <div className="app-header">
+        <div className="app-title">
+          <h1>🌍 Climate Monitoring & IoT Management System</h1>
         </div>
-
-        <div className="dashboard-content">
-          <div className="dashboard-grid">
-            <LocationSearch onSearch={handleLocationSearch} />
-            
-            <ClimateCard 
-              data={currentWeather} 
-              loading={loading} 
-              error={error} 
-            />
-            
-            <ForecastDisplay 
-              forecast={forecast} 
-              loading={loading} 
-              error={error} 
-            />
-
-            {coordinates && (
-              <>
-                <AirQualityCard 
-                  latitude={coordinates.lat} 
-                  longitude={coordinates.lon} 
-                />
-                
-                <HourlyForecast 
-                  latitude={coordinates.lat} 
-                  longitude={coordinates.lon} 
-                />
-              </>
-            )}
-          </div>
-
-          {error && (
-            <div className="error-banner">
-              <p>⚠️ {error}</p>
-              <button onClick={handleRetry} className="retry-button-small">
-                Retry
-              </button>
-            </div>
+        <div className="app-navigation">
+          {currentView !== 'home' && (
+            <button 
+              className="nav-btn back-btn"
+              onClick={handleBackToHome}
+            >
+              ← Back to Home
+            </button>
           )}
 
-          {!loading && !error && !currentWeather && (
-            <div className="no-data-container">
-              <h3>🌤️ Welcome to Climate Monitoring</h3>
-              <p>Search for a location above to get started with weather data.</p>
-            </div>
-          )}
         </div>
+      </div>
+
+
+
+      {/* Main Content */}
+      <div className="app-content">
+        {currentView === 'home' && (
+          <div className="home-container">
+            <div className="home-header">
+              <p>Choose a module to get started</p>
+            </div>
+            <div className="main-modules">
+              <div className="module-card" onClick={() => handleViewChange('climate')}>
+                <div className="module-icon">🌡️</div>
+                <h2>Climate Monitoring</h2>
+                <p>Zone → Country → State → City weather monitoring</p>
+              </div>
+              <div className="module-card" onClick={() => handleViewChange('global')}>
+                <div className="module-icon">🌍</div>
+                <h2>Global Weather Search</h2>
+                <p>Search any city worldwide for complete weather features</p>
+              </div>
+              <div className="module-card" onClick={() => handleViewChange('iot')}>
+                <div className="module-icon">🏢</div>
+                <h2>IoT Smart Building</h2>
+                <p>Smart building and IoT device management</p>
+              </div>
+              <div className="module-card" onClick={() => handleViewChange('database')}>
+                <div className="module-icon">🗄️</div>
+                <h2>Weather Database</h2>
+                <p>View weather data collected every 60 minutes with 14-day retention</p>
+              </div>
+              <div className="module-card" onClick={() => handleViewChange('reports')}>
+                <div className="module-icon">📊</div>
+                <h2>Reports & Notifications</h2>
+                <p>IoT Tools reports, Building Consolidation reports with notifications</p>
+              </div>
+              <div className="module-card" onClick={() => handleViewChange('iot-reports')}>
+                <div className="module-icon">📈</div>
+                <h2>IoT Reports Dashboard</h2>
+                <p>Interactive reports with charts, diagrams, and visual analytics</p>
+              </div>
+              <div className="module-card" onClick={() => handleViewChange('notifications')}>
+                <div className="module-icon">🔔</div>
+                <h2>Live Notification Center</h2>
+                <p>Real-time IoT alerts, instant reports, and system notifications</p>
+              </div>
+              <div className="module-card" onClick={() => handleViewChange('iot-tools')}>
+                <div className="module-icon">🔧</div>
+                <h2>IoT Tools Catalog</h2>
+                <p>Browse, deploy, and manage real-world IoT devices and tools</p>
+              </div>
+            </div>
+          </div>
+        )}
+
+        {currentView === 'climate' && (
+          <EnhancedLocationSelector onCitySelect={handleCitySelect} />
+        )}
+
+        {currentView === 'global' && (
+          <GlobalWeatherSearch />
+        )}
+
+        {currentView === 'iot' && (
+          <IoTDashboard />
+        )}
+
+        {currentView === 'database' && (
+          <WeatherDatabaseViewer />
+        )}
+
+        {currentView === 'reports' && (
+          <IoTReportsNotificationDashboard />
+        )}
+
+        {currentView === 'notifications' && (
+          <UINotificationCenter />
+        )}
+
+        {currentView === 'iot-tools' && (
+          <IoTToolsCatalog />
+        )}
+
+        {currentView === 'iot-reports' && (
+          <IoTReportsDashboard />
+        )}
+
+        {selectedCity && (
+          <CityDashboard 
+            cityData={selectedCity} 
+            onBack={handleBackToSelector} 
+          />
+        )}
       </div>
     </div>
   );

@@ -202,3 +202,76 @@
     flex: 1;
   }
 }
+/* IoT-specific alert styles */
+.iot-alert {
+  border-left: 4px solid #4ECDC4;
+  background: linear-gradient(135deg, #f8fdff 0%, #e8f8ff 100%);
+}
+
+.iot-badge {
+  background: #4ECDC4;
+  color: white;
+  padding: 2px 6px;
+  border-radius: 10px;
+  font-size: 10px;
+  font-weight: bold;
+  margin-left: 8px;
+}
+
+.iot-details {
+  margin: 8px 0;
+  padding: 8px;
+  background: rgba(78, 205, 196, 0.1);
+  border-radius: 4px;
+  font-size: 12px;
+}
+
+.iot-details > div {
+  margin: 2px 0;
+  color: #2c3e50;
+}
+
+.device-info {
+  font-weight: 500;
+}
+
+.zone-info {
+  color: #7f8c8d;
+}
+
+.power-info {
+  color: #e74c3c;
+  font-weight: 500;
+}
+
+.maintenance-info {
+  color: #f39c12;
+  font-weight: 500;
+}
+
+/* Enhanced severity styles for IoT alerts */
+.iot-alert.severity-critical {
+  border-left-color: #e74c3c;
+  background: linear-gradient(135deg, #fdf2f2 0%, #fce4e4 100%);
+}
+
+.iot-alert.severity-warning {
+  border-left-color: #f39c12;
+  background: linear-gradient(135deg, #fefbf2 0%, #fdf4e4 100%);
+}
+
+.iot-alert.severity-info {
+  border-left-color: #3498db;
+  background: linear-gradient(135deg, #f2f8fd 0%, #e4f1fc 100%);
+}
+
+/* Animation for new IoT alerts */
+.iot-alert.new-alert {
+  animation: iotPulse 2s ease-in-out;
+}
+
+@keyframes iotPulse {
+  0% { box-shadow: 0 0 0 0 rgba(78, 205, 196, 0.7); }
+  70% { box-shadow: 0 0 0 10px rgba(78, 205, 196, 0); }
+  100% { box-shadow: 0 0 0 0 rgba(78, 205, 196, 0); }
+}

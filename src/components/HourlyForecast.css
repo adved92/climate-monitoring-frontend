@@ -21,6 +21,45 @@
   font-size: 24px;
 }
 
+.forecast-controls {
+  display: flex;
+  gap: 16px;
+  align-items: center;
+  flex-wrap: wrap;
+}
+
+.time-range-selector {
+  display: flex;
+  gap: 4px;
+  background: #e8f4f8;
+  padding: 4px;
+  border-radius: 8px;
+  border: 1px solid #b3d9e6;
+}
+
+.time-range-selector button {
+  padding: 8px 12px;
+  border: none;
+  background: transparent;
+  border-radius: 6px;
+  cursor: pointer;
+  font-size: 13px;
+  font-weight: 500;
+  color: #2c5aa0;
+  transition: all 0.3s ease;
+  white-space: nowrap;
+}
+
+.time-range-selector button.active {
+  background: #4a90e2;
+  color: white;
+  box-shadow: 0 2px 4px rgba(74, 144, 226, 0.3);
+}
+
+.time-range-selector button:hover:not(.active) {
+  background: rgba(74, 144, 226, 0.1);
+}
+
 .view-toggle {
   display: flex;
   gap: 8px;
@@ -89,6 +128,16 @@
   flex-direction: column;
   gap: 12px;
   transition: transform 0.2s ease, box-shadow 0.2s ease;
+  position: relative;
+}
+
+.hour-card.historical {
+  background: linear-gradient(135deg, #8e9aaf 0%, #6c7b7f 100%);
+  border: 2px solid #5a6c7d;
+}
+
+.hour-card.forecast {
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
 }
 
 .hour-card:hover {
@@ -138,6 +187,28 @@
   font-size: 12px;
   opacity: 0.9;
   margin-top: 4px;
+}
+
+.hour-temp .temp-range {
+  font-size: 11px;
+  opacity: 0.8;
+  margin-top: 4px;
+  font-weight: 500;
+}
+
+.historical-indicator {
+  position: absolute;
+  top: 8px;
+  right: 8px;
+}
+
+.history-badge {
+  background: rgba(255, 255, 255, 0.2);
+  padding: 2px 6px;
+  border-radius: 4px;
+  font-size: 10px;
+  font-weight: 600;
+  text-transform: uppercase;
 }
 
 .hour-details {
@@ -205,6 +276,23 @@
 
   .hourly-header h2 {
     font-size: 20px;
+  }
+
+  .forecast-controls {
+    width: 100%;
+    flex-direction: column;
+    gap: 12px;
+  }
+
+  .time-range-selector {
+    width: 100%;
+    justify-content: space-between;
+  }
+
+  .time-range-selector button {
+    flex: 1;
+    font-size: 12px;
+    padding: 6px 8px;
   }
 
   .view-toggle {

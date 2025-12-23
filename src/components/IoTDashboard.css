@@ -1,0 +1,2184 @@
+.iot-dashboard {
+  padding: 20px;
+  max-width: 1400px;
+  margin: 0 auto;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  background: #ffffff;
+  border-radius: 20px;
+  border: 2px solid #e0e0e0;
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.15);
+  min-height: 100vh;
+}
+
+.iot-dashboard.loading,
+.iot-dashboard.error,
+.iot-dashboard.no-data {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 60vh;
+  text-align: center;
+}
+
+.loading-spinner {
+  font-size: 4rem;
+  animation: pulse 2s infinite;
+}
+
+@keyframes pulse {
+  0%, 100% { transform: scale(1); }
+  50% { transform: scale(1.1); }
+}
+
+.error-message,
+.no-data-message {
+  background: rgba(255, 255, 255, 0.1);
+  backdrop-filter: blur(10px);
+  border-radius: 20px;
+  padding: 40px;
+  border: 1px solid rgba(255, 255, 255, 0.2);
+}
+
+.retry-btn,
+.init-btn {
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  color: white;
+  border: none;
+  padding: 12px 24px;
+  border-radius: 10px;
+  cursor: pointer;
+  margin: 10px;
+  font-weight: 600;
+  transition: all 0.3s ease;
+}
+
+.retry-btn:hover,
+.init-btn:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 25px rgba(102, 126, 234, 0.3);
+}
+
+/* Dashboard Header */
+.dashboard-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 30px;
+  padding: 25px;
+  background: #ffffff;
+  border-radius: 20px;
+  border: 3px solid #667eea;
+  box-shadow: 0 6px 20px rgba(102, 126, 234, 0.2);
+}
+
+.building-info h1 {
+  margin: 0 0 10px 0;
+  font-size: 2.2rem;
+  color: #2c3e50 !important;
+  font-weight: 800;
+  text-shadow: none;
+}
+
+.building-info p {
+  margin: 5px 0;
+  color: #34495e !important;
+  font-weight: 600;
+  font-size: 1.1rem;
+}
+
+.climate-status {
+  background: #f0f4ff;
+  padding: 10px 20px;
+  border-radius: 20px;
+  font-size: 1rem;
+  margin-top: 10px;
+  display: inline-block;
+  color: #2c3e50 !important;
+  font-weight: 600;
+  border: 2px solid #667eea;
+}
+
+.building-subtitle {
+  margin-top: 8px;
+}
+
+.building-subtitle p {
+  color: #667eea !important;
+  font-weight: 700;
+  font-size: 1.15rem;
+}
+
+.dashboard-actions {
+  display: flex;
+  gap: 10px;
+}
+
+.action-btn {
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  color: white;
+  border: 2px solid #667eea;
+  padding: 12px 24px;
+  border-radius: 10px;
+  cursor: pointer;
+  font-weight: 700;
+  font-size: 14px;
+  transition: all 0.3s ease;
+  box-shadow: 0 4px 12px rgba(102, 126, 234, 0.3);
+}
+
+.action-btn:hover {
+  background: linear-gradient(135deg, #764ba2 0%, #667eea 100%);
+  transform: translateY(-3px);
+  box-shadow: 0 6px 20px rgba(102, 126, 234, 0.5);
+}
+
+/* Dashboard Tabs */
+.dashboard-tabs {
+  display: flex;
+  gap: 8px;
+  margin-bottom: 30px;
+  background: #f8f9fa;
+  padding: 8px;
+  border-radius: 15px;
+  border: 2px solid #e9ecef;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+}
+
+.tab {
+  flex: 1;
+  padding: 16px 20px;
+  border: 2px solid #dee2e6;
+  background: #ffffff;
+  color: #2c3e50;
+  cursor: pointer;
+  border-radius: 12px;
+  font-weight: 700;
+  font-size: 14px;
+  transition: all 0.3s ease;
+  text-align: center;
+  min-height: 50px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+}
+
+.tab.active {
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  color: white !important;
+  border-color: #667eea;
+  box-shadow: 0 4px 15px rgba(102, 126, 234, 0.4);
+  transform: translateY(-2px);
+}
+
+.tab:hover:not(.active) {
+  background: rgba(102, 126, 234, 0.1);
+  color: #2c3e50;
+  border-color: #667eea;
+  transform: translateY(-1px);
+  box-shadow: 0 3px 12px rgba(0, 0, 0, 0.15);
+}
+
+/* Overview Section */
+.overview-section {
+  display: flex;
+  flex-direction: column;
+  gap: 30px;
+}
+
+.stats-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 20px;
+}
+
+.stat-card {
+  background: #ffffff;
+  border-radius: 20px;
+  padding: 25px;
+  border: 2px solid #e9ecef;
+  display: flex;
+  align-items: center;
+  gap: 20px;
+  transition: all 0.3s ease;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+}
+
+.stat-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+}
+
+.stat-icon {
+  font-size: 3rem;
+  opacity: 0.8;
+}
+
+.stat-info h3 {
+  margin: 0 0 5px 0;
+  font-size: 2rem;
+  font-weight: 700;
+  color: #2c3e50 !important;
+}
+
+.stat-info p {
+  margin: 0 0 5px 0;
+  color: #34495e !important;
+  font-weight: 600;
+  font-size: 1rem;
+}
+
+.stat-info small {
+  color: #6c757d !important;
+  font-size: 0.9rem;
+  font-weight: 500;
+}
+
+.stat-card.power {
+  background: linear-gradient(135deg, #ffeaa7 0%, #fab1a0 100%);
+}
+
+.stat-card.devices {
+  background: linear-gradient(135deg, #74b9ff 0%, #0984e3 100%);
+  color: white;
+}
+
+.stat-card.health {
+  background: linear-gradient(135deg, #fd79a8 0%, #e84393 100%);
+  color: white;
+}
+
+.stat-card.carbon {
+  background: linear-gradient(135deg, #00b894 0%, #00a085 100%);
+  color: white;
+}
+
+.stat-card.iot-power {
+  background: linear-gradient(135deg, #a29bfe 0%, #6c5ce7 100%);
+  color: white;
+}
+
+/* Power Savings Card */
+.power-savings-card {
+  background: #ffffff;
+  border-radius: 20px;
+  padding: 25px;
+  border: 2px solid #e9ecef;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+}
+
+.power-savings-card h3 {
+  margin: 0 0 20px 0;
+  color: #2c3e50 !important;
+  font-weight: 700;
+  font-size: 1.4rem;
+}
+
+.savings-info {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 15px;
+}
+
+.savings-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 15px;
+  background: #f8f9fa;
+  border-radius: 10px;
+  border: 1px solid #e9ecef;
+}
+
+.savings-item .label {
+  color: #495057 !important;
+  font-weight: 600;
+  font-size: 1rem;
+}
+
+.savings-item .value {
+  font-weight: 700;
+  color: #2c3e50 !important;
+  font-size: 1.1rem;
+}
+
+/* IoT Benefits Card */
+.iot-benefits-card {
+  background: #ffffff;
+  border-radius: 20px;
+  padding: 25px;
+  border: 2px solid #e9ecef;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+}
+
+.iot-benefits-card h3 {
+  margin: 0 0 20px 0;
+  color: #2c3e50 !important;
+  font-weight: 700;
+  font-size: 1.4rem;
+}
+
+.benefits-list {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+}
+
+.benefit-item {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+  padding: 15px;
+  background: #f8f9fa;
+  border-radius: 10px;
+  border-left: 4px solid #6c5ce7;
+  border: 1px solid #e9ecef;
+}
+
+.benefit-icon {
+  font-size: 1.5rem;
+}
+
+.benefit-text {
+  flex: 1;
+  color: #2c3e50 !important;
+  font-weight: 600;
+  font-size: 1rem;
+  line-height: 1.5;
+}
+
+/* Optimization Suggestions */
+.optimization-suggestions {
+  background: rgba(255, 255, 255, 0.1);
+  backdrop-filter: blur(10px);
+  border-radius: 20px;
+  padding: 25px;
+  border: 1px solid rgba(255, 255, 255, 0.2);
+}
+
+.optimization-suggestions h3 {
+  margin: 0 0 20px 0;
+  color: #333;
+}
+
+.suggestions-list {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.suggestion-item {
+  padding: 15px;
+  background: rgba(255, 255, 255, 0.1);
+  border-radius: 10px;
+  border-left: 4px solid #667eea;
+}
+
+.suggestion-text {
+  color: #333;
+  font-weight: 500;
+}
+
+/* Devices Section */
+.devices-section {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.zone-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+  gap: 20px;
+}
+
+.category-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
+  gap: 20px;
+}
+
+.category-card {
+  background: #ffffff;
+  border-radius: 20px;
+  padding: 25px;
+  border: 2px solid #e9ecef;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+}
+
+.category-card h4 {
+  margin: 0 0 15px 0;
+  color: #2c3e50 !important;
+  font-size: 1.3rem;
+  font-weight: 700;
+}
+
+.category-stats {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 10px;
+  margin-bottom: 20px;
+}
+
+.category-stat {
+  text-align: center;
+  padding: 12px;
+  background: #f8f9fa;
+  border-radius: 8px;
+  border: 1px solid #e9ecef;
+}
+
+.category-stat .label {
+  display: block;
+  color: #495057 !important;
+  font-size: 0.9rem;
+  margin-bottom: 5px;
+  font-weight: 600;
+}
+
+.category-stat .value {
+  display: block;
+  font-weight: 700;
+  font-size: 1.15rem;
+  color: #2c3e50 !important;
+}
+
+.category-devices {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.device-savings {
+  color: #00b894;
+  font-size: 0.85rem;
+  font-weight: 600;
+}
+
+.zone-card {
+  background: rgba(255, 255, 255, 0.1);
+  backdrop-filter: blur(10px);
+  border-radius: 20px;
+  padding: 25px;
+  border: 1px solid rgba(255, 255, 255, 0.2);
+}
+
+.zone-card h4 {
+  margin: 0 0 15px 0;
+  color: #333;
+  font-size: 1.3rem;
+}
+
+.zone-stats {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 20px;
+}
+
+.zone-stat {
+  text-align: center;
+}
+
+.zone-stat .label {
+  display: block;
+  color: #666;
+  font-size: 0.85rem;
+  margin-bottom: 5px;
+}
+
+.zone-stat .value {
+  display: block;
+  font-weight: 700;
+  font-size: 1.2rem;
+  color: #333;
+}
+
+.zone-devices {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.device-item {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+  padding: 12px;
+  background: #f8f9fa;
+  border-radius: 10px;
+  transition: all 0.3s ease;
+  border: 1px solid #e9ecef;
+}
+
+.device-item:hover {
+  background: #e9ecef;
+  transform: translateY(-1px);
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+}
+
+.device-item.active {
+  border-left: 4px solid #00b894;
+}
+
+.device-item.faulty {
+  border-left: 4px solid #e17055;
+}
+
+.device-item.inactive {
+  border-left: 4px solid #fdcb6e;
+}
+
+.device-icon {
+  font-size: 1.5rem;
+}
+
+.device-info {
+  flex: 1;
+}
+
+.device-name {
+  font-weight: 700;
+  color: #2c3e50 !important;
+  margin-bottom: 2px;
+  font-size: 1rem;
+}
+
+.device-power {
+  color: #495057 !important;
+  font-size: 0.95rem;
+  font-weight: 600;
+}
+
+.device-status {
+  font-size: 1.2rem;
+}
+
+.more-devices {
+  text-align: center;
+  color: #666;
+  font-style: italic;
+  padding: 10px;
+}
+
+/* Power Section */
+.power-section {
+  display: flex;
+  flex-direction: column;
+  gap: 30px;
+}
+
+.power-comparison {
+  background: rgba(255, 255, 255, 0.1);
+  backdrop-filter: blur(10px);
+  border-radius: 20px;
+  padding: 25px;
+  border: 1px solid rgba(255, 255, 255, 0.2);
+}
+
+.power-comparison h3 {
+  margin: 0 0 20px 0;
+  color: #333;
+}
+
+.comparison-chart {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.power-bar-container {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+}
+
+.power-bar {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+}
+
+.power-bar.normal .bar-fill {
+  background: linear-gradient(90deg, #e17055 0%, #d63031 100%);
+}
+
+.power-bar.iot .bar-fill {
+  background: linear-gradient(90deg, #00b894 0%, #00a085 100%);
+}
+
+.bar-label {
+  min-width: 120px;
+  font-weight: 600;
+  color: #333;
+}
+
+.bar-fill {
+  flex: 1;
+  height: 40px;
+  border-radius: 20px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: white;
+  font-weight: 700;
+  font-size: 1.1rem;
+}
+
+.savings-highlight {
+  text-align: center;
+  padding: 20px;
+  background: rgba(0, 184, 148, 0.1);
+  border-radius: 15px;
+  border: 2px solid #00b894;
+}
+
+.savings-amount {
+  font-size: 1.8rem;
+  font-weight: 700;
+  color: #00b894;
+  margin-bottom: 5px;
+}
+
+.savings-percentage {
+  font-size: 1.2rem;
+  color: #666;
+  font-weight: 600;
+}
+
+.device-breakdown {
+  background: rgba(255, 255, 255, 0.1);
+  backdrop-filter: blur(10px);
+  border-radius: 20px;
+  padding: 25px;
+  border: 1px solid rgba(255, 255, 255, 0.2);
+}
+
+.device-breakdown h4 {
+  margin: 0 0 20px 0;
+  color: #333;
+}
+
+.breakdown-grid {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+}
+
+.breakdown-item {
+  background: rgba(255, 255, 255, 0.1);
+  border-radius: 15px;
+  padding: 20px;
+}
+
+.breakdown-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 15px;
+}
+
+.category-name {
+  font-weight: 700;
+  color: #333;
+  font-size: 1.1rem;
+}
+
+.category-savings {
+  background: #00b894;
+  color: white;
+  padding: 5px 12px;
+  border-radius: 15px;
+  font-size: 0.9rem;
+  font-weight: 600;
+}
+
+.breakdown-bars {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.breakdown-bar {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.breakdown-bar .bar-label {
+  min-width: 80px;
+  font-weight: 600;
+  color: #666;
+}
+
+.breakdown-bar .bar-fill {
+  flex: 1;
+  padding: 8px 15px;
+  border-radius: 8px;
+  font-weight: 600;
+  color: #333;
+}
+
+.breakdown-bar.normal .bar-fill {
+  background: rgba(225, 112, 85, 0.2);
+  border-left: 4px solid #e17055;
+}
+
+.breakdown-bar.iot .bar-fill {
+  background: rgba(0, 184, 148, 0.2);
+  border-left: 4px solid #00b894;
+}
+
+.annual-impact {
+  background: rgba(255, 255, 255, 0.1);
+  backdrop-filter: blur(10px);
+  border-radius: 20px;
+  padding: 25px;
+  border: 1px solid rgba(255, 255, 255, 0.2);
+}
+
+.annual-impact h4 {
+  margin: 0 0 20px 0;
+  color: #333;
+}
+
+.impact-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: 15px;
+}
+
+.impact-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 15px;
+  background: rgba(255, 255, 255, 0.1);
+  border-radius: 10px;
+}
+
+.impact-label {
+  color: #666;
+  font-weight: 600;
+}
+
+.impact-value {
+  font-weight: 700;
+  color: #333;
+  font-size: 1.1rem;
+}
+
+.power-overview {
+  background: rgba(255, 255, 255, 0.1);
+  backdrop-filter: blur(10px);
+  border-radius: 20px;
+  padding: 25px;
+  border: 1px solid rgba(255, 255, 255, 0.2);
+}
+
+.power-overview h3 {
+  margin: 0 0 20px 0;
+  color: #333;
+}
+
+.highest-consumer {
+  background: rgba(255, 255, 255, 0.1);
+  padding: 20px;
+  border-radius: 15px;
+  border-left: 4px solid #e17055;
+}
+
+.highest-consumer h4 {
+  margin: 0 0 10px 0;
+  color: #333;
+}
+
+.highest-consumer p {
+  margin: 0;
+  font-weight: 600;
+  color: #666;
+}
+
+.zone-power-breakdown {
+  background: rgba(255, 255, 255, 0.1);
+  backdrop-filter: blur(10px);
+  border-radius: 20px;
+  padding: 25px;
+  border: 1px solid rgba(255, 255, 255, 0.2);
+}
+
+.zone-power-breakdown h4 {
+  margin: 0 0 20px 0;
+  color: #333;
+}
+
+.power-bars {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+}
+
+.power-bar-item {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+}
+
+.zone-name {
+  min-width: 120px;
+  font-weight: 600;
+  color: #333;
+}
+
+.power-bar {
+  flex: 1;
+  height: 20px;
+  background: rgba(255, 255, 255, 0.2);
+  border-radius: 10px;
+  overflow: hidden;
+}
+
+.power-fill {
+  height: 100%;
+  background: linear-gradient(90deg, #667eea 0%, #764ba2 100%);
+  border-radius: 10px;
+  transition: width 0.5s ease;
+}
+
+.power-value {
+  min-width: 80px;
+  text-align: right;
+  font-weight: 700;
+  color: #333;
+}
+
+.cost-analysis {
+  background: rgba(255, 255, 255, 0.1);
+  backdrop-filter: blur(10px);
+  border-radius: 20px;
+  padding: 25px;
+  border: 1px solid rgba(255, 255, 255, 0.2);
+}
+
+.cost-analysis h4 {
+  margin: 0 0 20px 0;
+  color: #333;
+}
+
+.cost-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 15px;
+}
+
+.cost-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 15px;
+  background: rgba(255, 255, 255, 0.1);
+  border-radius: 10px;
+}
+
+.cost-label {
+  color: #666;
+  font-weight: 600;
+}
+
+.cost-value {
+  font-weight: 700;
+  color: #333;
+  font-size: 1.1rem;
+}
+
+/* Climate Section */
+.climate-section {
+  display: flex;
+  flex-direction: column;
+  gap: 30px;
+}
+
+.environmental-impact-overview {
+  background: rgba(255, 255, 255, 0.1);
+  backdrop-filter: blur(10px);
+  border-radius: 20px;
+  padding: 25px;
+  border: 1px solid rgba(255, 255, 255, 0.2);
+}
+
+.environmental-impact-overview h3 {
+  margin: 0 0 20px 0;
+  color: #333;
+}
+
+.impact-stats {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: 20px;
+}
+
+.impact-stat {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+  padding: 20px;
+  background: rgba(255, 255, 255, 0.1);
+  border-radius: 15px;
+}
+
+.implementation-timeline {
+  background: rgba(255, 255, 255, 0.1);
+  backdrop-filter: blur(10px);
+  border-radius: 20px;
+  padding: 25px;
+  border: 1px solid rgba(255, 255, 255, 0.2);
+}
+
+.implementation-timeline h4 {
+  margin: 0 0 20px 0;
+  color: #333;
+}
+
+.timeline-phases {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+  margin-bottom: 20px;
+}
+
+.phase-item {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+  padding: 15px;
+  background: rgba(255, 255, 255, 0.1);
+  border-radius: 10px;
+}
+
+.phase-number {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  color: white;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 700;
+  font-size: 1.2rem;
+}
+
+.phase-info {
+  flex: 1;
+}
+
+.phase-name {
+  font-weight: 600;
+  color: #333;
+  margin-bottom: 5px;
+}
+
+.phase-duration {
+  color: #666;
+  font-size: 0.9rem;
+}
+
+.total-timeline {
+  text-align: center;
+  padding: 15px;
+  background: rgba(102, 126, 234, 0.1);
+  border-radius: 10px;
+  border: 2px solid #667eea;
+  color: #333;
+}
+
+.iot-benefits-detailed {
+  background: rgba(255, 255, 255, 0.1);
+  backdrop-filter: blur(10px);
+  border-radius: 20px;
+  padding: 25px;
+  border: 1px solid rgba(255, 255, 255, 0.2);
+}
+
+.iot-benefits-detailed h4 {
+  margin: 0 0 20px 0;
+  color: #333;
+}
+
+.climate-impact-overview {
+  background: rgba(255, 255, 255, 0.1);
+  backdrop-filter: blur(10px);
+  border-radius: 20px;
+  padding: 25px;
+  border: 1px solid rgba(255, 255, 255, 0.2);
+}
+
+.climate-impact-overview h3 {
+  margin: 0 0 20px 0;
+  color: #333;
+}
+
+.current-conditions {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 20px;
+}
+
+.condition-item {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+  padding: 20px;
+  background: rgba(255, 255, 255, 0.1);
+  border-radius: 15px;
+}
+
+.condition-icon {
+  font-size: 2rem;
+}
+
+.condition-info {
+  flex: 1;
+}
+
+.condition-label {
+  color: #666;
+  font-size: 0.9rem;
+  margin-bottom: 5px;
+}
+
+.condition-value {
+  font-weight: 700;
+  font-size: 1.3rem;
+  color: #333;
+}
+
+.climate-optimizations {
+  background: rgba(255, 255, 255, 0.1);
+  backdrop-filter: blur(10px);
+  border-radius: 20px;
+  padding: 25px;
+  border: 1px solid rgba(255, 255, 255, 0.2);
+}
+
+.climate-optimizations h4 {
+  margin: 0 0 20px 0;
+  color: #333;
+}
+
+.optimization-list {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+}
+
+.optimization-item {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+  padding: 15px;
+  background: rgba(255, 255, 255, 0.1);
+  border-radius: 10px;
+  border-left: 4px solid #00b894;
+}
+
+.optimization-icon {
+  font-size: 1.5rem;
+}
+
+.optimization-text {
+  flex: 1;
+  color: #333;
+  font-weight: 500;
+}
+
+.climate-benefits {
+  background: rgba(255, 255, 255, 0.1);
+  backdrop-filter: blur(10px);
+  border-radius: 20px;
+  padding: 25px;
+  border: 1px solid rgba(255, 255, 255, 0.2);
+}
+
+.climate-benefits h4 {
+  margin: 0 0 20px 0;
+  color: #333;
+}
+
+.benefits-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: 20px;
+}
+
+.benefit-item {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+  padding: 20px;
+  background: rgba(255, 255, 255, 0.1);
+  border-radius: 15px;
+}
+
+.benefit-icon {
+  font-size: 2rem;
+}
+
+.benefit-info {
+  flex: 1;
+}
+
+.benefit-label {
+  color: #666;
+  font-size: 0.9rem;
+  margin-bottom: 5px;
+}
+
+.benefit-value {
+  font-weight: 700;
+  font-size: 1.2rem;
+  color: #00b894;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  .iot-dashboard {
+    padding: 15px;
+  }
+  
+  .dashboard-header {
+    flex-direction: column;
+    gap: 20px;
+    text-align: center;
+  }
+  
+  .dashboard-actions {
+    justify-content: center;
+  }
+  
+  .stats-grid {
+    grid-template-columns: 1fr;
+  }
+  
+  .zone-grid {
+    grid-template-columns: 1fr;
+  }
+  
+  .climate-info,
+  .current-conditions,
+  .cost-grid,
+  .benefits-grid {
+    grid-template-columns: 1fr;
+  }
+  
+  .power-bar-item {
+    flex-direction: column;
+    align-items: stretch;
+    gap: 10px;
+  }
+  
+  .zone-name,
+  .power-value {
+    min-width: auto;
+    text-align: left;
+  }
+}
+
+/* IoT Benefits Section Styles */
+.benefits-section {
+  padding: 20px 0;
+}
+
+.iot-benefits-overview {
+  background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
+  border-radius: 16px;
+  padding: 24px;
+  margin-bottom: 24px;
+  border: 1px solid #dee2e6;
+  color: #2c3e50;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+}
+
+.iot-benefits-overview h3 {
+  margin: 0 0 20px 0;
+  color: #2c3e50;
+  font-size: 1.5rem;
+  text-align: center;
+  font-weight: 700;
+}
+
+.benefits-explanation {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+}
+
+.benefit-category {
+  background: rgba(255, 255, 255, 0.95);
+  border-radius: 12px;
+  padding: 20px;
+  border: 1px solid #e9ecef;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+}
+
+.benefit-category h4 {
+  margin: 0 0 16px 0;
+  color: #2c3e50;
+  font-size: 1.2rem;
+  border-bottom: 2px solid #007bff;
+  padding-bottom: 8px;
+  font-weight: 700;
+}
+
+.benefit-details {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.benefit-point {
+  display: flex;
+  align-items: flex-start;
+  gap: 12px;
+  padding: 12px;
+  background: #f8f9fa;
+  border-radius: 8px;
+  border-left: 4px solid #007bff;
+}
+
+.benefit-icon {
+  font-size: 1.5rem;
+  flex-shrink: 0;
+  margin-top: 2px;
+}
+
+.benefit-content {
+  flex: 1;
+  line-height: 1.6;
+}
+
+.benefit-content strong {
+  color: #2c3e50;
+  font-weight: 700;
+}
+
+.benefit-content {
+  color: #495057;
+}
+
+.power-savings-breakdown {
+  background: white;
+  border-radius: 16px;
+  padding: 24px;
+  margin-bottom: 24px;
+  border: 1px solid #dee2e6;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+}
+
+.power-savings-breakdown h4 {
+  margin: 0 0 20px 0;
+  color: #2c3e50;
+  font-size: 1.3rem;
+  text-align: center;
+}
+
+.savings-categories {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 16px;
+}
+
+.savings-category {
+  background: linear-gradient(135deg, #f8f9fa 0%, #ffffff 100%);
+  border-radius: 12px;
+  padding: 16px;
+  border: 1px solid #e9ecef;
+  transition: all 0.3s ease;
+}
+
+.savings-category:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+}
+
+.category-header {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 12px;
+}
+
+.category-icon {
+  font-size: 1.5rem;
+}
+
+.category-name {
+  flex: 1;
+  font-weight: 600;
+  color: #2c3e50;
+}
+
+.category-savings {
+  background: #28a745;
+  color: white;
+  padding: 4px 8px;
+  border-radius: 6px;
+  font-size: 0.85rem;
+  font-weight: 600;
+}
+
+.category-explanation {
+  color: #6c757d;
+  line-height: 1.5;
+  font-size: 0.95rem;
+}
+
+.implementation-benefits {
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  border-radius: 16px;
+  padding: 24px;
+  color: white;
+}
+
+.implementation-benefits h4 {
+  margin: 0 0 20px 0;
+  font-size: 1.3rem;
+  text-align: center;
+  color: white;
+}
+
+.implementation-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: 16px;
+}
+
+.implementation-item {
+  background: rgba(255, 255, 255, 0.1);
+  border-radius: 12px;
+  padding: 16px;
+  backdrop-filter: blur(10px);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  transition: all 0.3s ease;
+}
+
+.implementation-item:hover {
+  background: rgba(255, 255, 255, 0.2);
+  transform: translateY(-2px);
+}
+
+.impl-icon {
+  font-size: 2rem;
+  margin-bottom: 8px;
+}
+
+.impl-title {
+  font-weight: 600;
+  font-size: 1.1rem;
+  margin-bottom: 8px;
+}
+
+.impl-description {
+  font-size: 0.9rem;
+  line-height: 1.5;
+  opacity: 0.9;
+}
+
+/* Responsive Design for Benefits Section */
+@media (max-width: 768px) {
+  .benefits-explanation {
+    gap: 16px;
+  }
+  
+  .benefit-category {
+    padding: 16px;
+  }
+  
+  .benefit-point {
+    flex-direction: column;
+    gap: 8px;
+  }
+  
+  .benefit-icon {
+    align-self: flex-start;
+  }
+  
+  .savings-categories {
+    grid-template-columns: 1fr;
+  }
+  
+  .implementation-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (max-width: 480px) {
+  .iot-benefits-overview,
+  .power-savings-breakdown,
+  .implementation-benefits {
+    padding: 16px;
+    margin-bottom: 16px;
+  }
+  
+  .benefit-category {
+    padding: 12px;
+  }
+  
+  .category-header {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 8px;
+  }
+}
+
+/* Email Notifications Section */
+.notifications-section {
+  padding: 20px;
+  background: rgba(255, 255, 255, 0.05);
+  border-radius: 15px;
+  margin-top: 20px;
+}
+
+.email-notifications-overview h3 {
+  color: #667eea;
+  margin-bottom: 10px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.notification-controls {
+  display: grid;
+  gap: 30px;
+  margin: 30px 0;
+}
+
+.notification-group {
+  background: rgba(255, 255, 255, 0.08);
+  padding: 20px;
+  border-radius: 12px;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.notification-group h4 {
+  color: #764ba2;
+  margin-bottom: 15px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.notification-buttons {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+}
+
+.notification-btn {
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  color: white;
+  border: none;
+  padding: 12px 20px;
+  border-radius: 8px;
+  cursor: pointer;
+  font-weight: 600;
+  font-size: 14px;
+  transition: all 0.3s ease;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.notification-btn:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 25px rgba(102, 126, 234, 0.3);
+}
+
+.notification-btn.alert-btn {
+  background: linear-gradient(135deg, #f39c12 0%, #e67e22 100%);
+}
+
+.notification-btn.critical-btn {
+  background: linear-gradient(135deg, #e74c3c 0%, #c0392b 100%);
+}
+
+.notification-btn.report-btn {
+  background: linear-gradient(135deg, #3498db 0%, #2980b9 100%);
+}
+
+.notification-btn.building-btn {
+  background: linear-gradient(135deg, #9b59b6 0%, #8e44ad 100%);
+}
+
+.notification-btn.comprehensive-btn {
+  background: linear-gradient(135deg, #1abc9c 0%, #16a085 100%);
+}
+
+.notification-btn.weather-btn {
+  background: linear-gradient(135deg, #2ecc71 0%, #27ae60 100%);
+}
+
+.notification-btn.weekly-btn {
+  background: linear-gradient(135deg, #34495e 0%, #2c3e50 100%);
+}
+
+.notification-status {
+  background: rgba(46, 204, 113, 0.1);
+  border: 1px solid rgba(46, 204, 113, 0.3);
+  border-radius: 10px;
+  padding: 20px;
+  margin: 20px 0;
+}
+
+.notification-status h4 {
+  color: #27ae60;
+  margin-bottom: 15px;
+}
+
+.status-info {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: 10px;
+}
+
+.status-item {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 8px;
+  background: rgba(255, 255, 255, 0.05);
+  border-radius: 6px;
+}
+
+.status-icon {
+  font-size: 16px;
+}
+
+.notification-log {
+  background: rgba(52, 73, 94, 0.1);
+  border: 1px solid rgba(52, 73, 94, 0.3);
+  border-radius: 10px;
+  padding: 20px;
+  margin-top: 20px;
+}
+
+.notification-log h4 {
+  color: #34495e;
+  margin-bottom: 15px;
+}
+
+.log-entries {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.log-entry {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 10px;
+  background: rgba(255, 255, 255, 0.05);
+  border-radius: 6px;
+  font-size: 14px;
+}
+
+.log-time {
+  color: #95a5a6;
+  font-size: 12px;
+  min-width: 80px;
+}
+
+.log-message {
+  flex: 1;
+  margin: 0 15px;
+}
+
+.log-status.success {
+  color: #27ae60;
+}
+
+.log-status.error {
+  color: #e74c3c;
+}
+
+.log-status.warning {
+  color: #f39c12;
+}
+
+/* Responsive design for notifications */
+@media (max-width: 768px) {
+  .notification-buttons {
+    flex-direction: column;
+  }
+  
+  .notification-btn {
+    width: 100%;
+    justify-content: center;
+  }
+  
+  .status-info {
+    grid-template-columns: 1fr;
+  }
+}
+
+/* Notification Center Embedded Styles */
+.notification-center-container {
+  margin: 20px 0;
+  background: rgba(255, 255, 255, 0.9);
+  border-radius: 15px;
+  padding: 20px;
+  border: 1px solid rgba(0, 0, 0, 0.1);
+}
+
+.notification-center-embedded {
+  width: 100%;
+  background: transparent;
+}
+
+.notification-center.embedded {
+  background: transparent;
+  border: none;
+  box-shadow: none;
+  max-height: 500px;
+  overflow-y: auto;
+}
+
+.notifications-header {
+  margin-bottom: 20px;
+  text-align: center;
+}
+
+.notifications-header h3 {
+  color: #333;
+  margin-bottom: 10px;
+}
+
+.notifications-header p {
+  color: #666;
+  margin: 0;
+}
+
+/* Global Text Visibility Improvements */
+.iot-dashboard h1,
+.iot-dashboard h2,
+.iot-dashboard h3,
+.iot-dashboard h4,
+.iot-dashboard h5 {
+  color: #2c3e50 !important;
+  font-weight: 700 !important;
+  text-shadow: none !important;
+}
+
+.iot-dashboard p,
+.iot-dashboard span:not(.tab),
+.iot-dashboard div {
+  color: #34495e !important;
+  font-weight: 500 !important;
+}
+
+/* Universal Card Styling for Maximum Visibility */
+.stat-card,
+.category-card,
+.zone-card,
+.power-savings-card,
+.iot-benefits-card,
+.optimization-suggestions,
+.power-comparison,
+.device-breakdown,
+.annual-impact,
+.environmental-impact-overview,
+.implementation-timeline,
+.iot-benefits-detailed,
+.climate-impact-overview,
+.climate-optimizations,
+.climate-benefits {
+  background: #ffffff !important;
+  border: 2px solid #e9ecef !important;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1) !important;
+  color: #2c3e50 !important;
+}
+
+/* Ensure All Headers Are Visible */
+.stat-card h3,
+.category-card h4,
+.zone-card h4,
+.power-comparison h3,
+.device-breakdown h4,
+.annual-impact h4,
+.environmental-impact-overview h3,
+.implementation-timeline h4,
+.iot-benefits-detailed h4,
+.climate-impact-overview h3,
+.climate-optimizations h4,
+.climate-benefits h4 {
+  color: #2c3e50 !important;
+  font-weight: 700 !important;
+}
+
+/* Comprehensive Text Color Fixes */
+.stat-info p,
+.savings-item .label,
+.savings-item .value,
+.benefit-text,
+.suggestion-text,
+.category-stat .label,
+.category-stat .value,
+.zone-stat .label,
+.zone-stat .value,
+.device-name,
+.device-power,
+.bar-label,
+.category-name,
+.impact-label,
+.impact-value,
+.phase-name,
+.phase-duration,
+.condition-label,
+.condition-value,
+.optimization-text,
+.benefit-label,
+.benefit-value,
+.impl-title,
+.impl-description {
+  color: #2c3e50 !important;
+  font-weight: 600 !important;
+}
+
+/* Additional Styling for Better Contrast */
+.more-devices {
+  text-align: center;
+  color: #6c757d !important;
+  font-style: italic;
+  padding: 10px;
+  font-weight: 600;
+}
+
+.device-savings {
+  color: #28a745 !important;
+  font-size: 0.9rem;
+  font-weight: 700;
+}
+
+/* Power Section Improvements */
+.power-section {
+  display: flex;
+  flex-direction: column;
+  gap: 30px;
+}
+
+.power-section .power-comparison,
+.power-section .device-breakdown,
+.power-section .annual-impact {
+  background: #ffffff !important;
+  border: 2px solid #e9ecef !important;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1) !important;
+}
+
+/* Climate Section Improvements */
+.climate-section {
+  display: flex;
+  flex-direction: column;
+  gap: 30px;
+}
+
+.climate-section .environmental-impact-overview,
+.climate-section .implementation-timeline,
+.climate-section .iot-benefits-detailed {
+  background: #ffffff !important;
+  border: 2px solid #e9ecef !important;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1) !important;
+}ba(255, 255, 255, 0.9) !important;
+  color: #2c3e50 !important;
+  cursor: pointer;
+  border-radius: 12px !important;
+  font-weight: 700 !important;
+  font-size: 14px !important;
+  transition: all 0.3s ease;
+  text-align: center;
+  min-height: 50px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+}
+
+.tab.active {
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%) !important;
+  color: white !important;
+  border-color: #667eea !important;
+  box-shadow: 0 4px 15px rgba(102, 126, 234, 0.4) !important;
+  transform: translateY(-2px);
+}
+
+.tab:hover:not(.active) {
+  background: rgba(102, 126, 234, 0.1) !important;
+  color: #2c3e50 !important;
+  border-color: #667eea !important;
+  transform: translateY(-1px);
+  box-shadow: 0 3px 12px rgba(0, 0, 0, 0.15);
+}
+
+/* Final Visibility Enhancements */
+.dashboard-content {
+  background: transparent;
+}
+
+/* Ensure all sections have proper backgrounds */
+.overview-section,
+.devices-section,
+.power-section,
+.climate-section,
+.benefits-section,
+.notifications-section {
+  background: transparent;
+}
+
+/* Make sure all interactive elements are visible */
+.notification-btn {
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%) !important;
+  color: white !important;
+  border: 2px solid #667eea !important;
+  font-weight: 700 !important;
+  font-size: 14px !important;
+  padding: 12px 20px !important;
+  border-radius: 8px !important;
+  box-shadow: 0 4px 12px rgba(102, 126, 234, 0.3) !important;
+}
+
+.notification-btn:hover {
+  transform: translateY(-2px) !important;
+  box-shadow: 0 6px 20px rgba(102, 126, 234, 0.5) !important;
+}
+
+/* Notification Center Embedded Improvements */
+.notification-center-container {
+  background: #ffffff !important;
+  border: 2px solid #e9ecef !important;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1) !important;
+}
+
+.notifications-header h3 {
+  color: #2c3e50 !important;
+  font-weight: 700 !important;
+}
+
+.notifications-header p {
+  color: #495057 !important;
+  font-weight: 600 !important;
+}
+
+/* Three Reports Section */
+.three-reports-section {
+  background: #ffffff;
+  border-radius: 20px;
+  padding: 30px;
+  margin: 30px 0;
+  border: 2px solid #e9ecef;
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.1);
+}
+
+.three-reports-section h3 {
+  color: #2c3e50;
+  font-size: 1.6rem;
+  font-weight: 700;
+  margin-bottom: 10px;
+  text-align: center;
+}
+
+.three-reports-section p {
+  color: #495057;
+  font-size: 1.1rem;
+  text-align: center;
+  margin-bottom: 30px;
+}
+
+.reports-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+  gap: 25px;
+  margin-bottom: 30px;
+}
+
+.report-card {
+  background: #ffffff;
+  border-radius: 15px;
+  padding: 25px;
+  border: 2px solid #e9ecef;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+  transition: all 0.3s ease;
+}
+
+.report-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15);
+}
+
+.report-card.iot-tools-report {
+  border-left: 5px solid #667eea;
+}
+
+.report-card.notifications-report {
+  border-left: 5px solid #f39c12;
+}
+
+.report-card.building-report {
+  border-left: 5px solid #27ae60;
+}
+
+.report-header {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+  margin-bottom: 20px;
+}
+
+.report-icon {
+  font-size: 2.5rem;
+  width: 60px;
+  height: 60px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: #f8f9fa;
+  border-radius: 12px;
+  border: 2px solid #e9ecef;
+}
+
+.report-title h4 {
+  color: #2c3e50;
+  font-size: 1.3rem;
+  font-weight: 700;
+  margin: 0 0 5px 0;
+}
+
+.report-title p {
+  color: #6c757d;
+  font-size: 0.95rem;
+  margin: 0;
+}
+
+.report-content {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.report-stats {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.stat-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 10px 15px;
+  background: #f8f9fa;
+  border-radius: 8px;
+  border: 1px solid #e9ecef;
+}
+
+.stat-label {
+  color: #495057;
+  font-weight: 600;
+  font-size: 0.95rem;
+}
+
+.stat-value {
+  color: #2c3e50;
+  font-weight: 700;
+  font-size: 1rem;
+}
+
+.report-actions {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.report-btn {
+  padding: 12px 20px;
+  border-radius: 8px;
+  font-weight: 600;
+  font-size: 0.95rem;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  border: 2px solid transparent;
+}
+
+.report-btn.primary {
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  color: white;
+  border-color: #667eea;
+}
+
+.report-btn.primary:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 15px rgba(102, 126, 234, 0.4);
+}
+
+.report-btn.secondary {
+  background: #f8f9fa;
+  color: #495057;
+  border-color: #e9ecef;
+}
+
+.report-btn.secondary:hover {
+  background: #e9ecef;
+  color: #2c3e50;
+}
+
+/* Reports Summary */
+.reports-summary {
+  background: #f8f9fa;
+  border-radius: 15px;
+  padding: 25px;
+  border: 2px solid #e9ecef;
+}
+
+.reports-summary h4 {
+  color: #2c3e50;
+  font-size: 1.3rem;
+  font-weight: 700;
+  margin-bottom: 20px;
+  text-align: center;
+}
+
+.summary-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 15px;
+}
+
+.summary-item {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+  padding: 15px;
+  background: #ffffff;
+  border-radius: 10px;
+  border: 1px solid #e9ecef;
+}
+
+.summary-icon {
+  font-size: 1.8rem;
+  width: 50px;
+  height: 50px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: #f8f9fa;
+  border-radius: 10px;
+  border: 2px solid #e9ecef;
+}
+
+.summary-content {
+  flex: 1;
+}
+
+.summary-title {
+  color: #2c3e50;
+  font-weight: 700;
+  font-size: 1.1rem;
+  margin-bottom: 5px;
+}
+
+.summary-description {
+  color: #6c757d;
+  font-size: 0.9rem;
+  line-height: 1.4;
+}
+
+/* Responsive Design for Reports */
+@media (max-width: 768px) {
+  .reports-grid {
+    grid-template-columns: 1fr;
+  }
+  
+  .summary-grid {
+    grid-template-columns: 1fr;
+  }
+  
+  .report-header {
+    flex-direction: column;
+    text-align: center;
+    gap: 10px;
+  }
+  
+  .stat-item {
+    flex-direction: column;
+    gap: 5px;
+    text-align: center;
+  }
+}
+
+/* Reports Dashboard Styles */
+.main-reports-button {
+  text-align: center;
+  margin: 40px 0;
+  padding: 30px;
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  border-radius: 15px;
+  color: white;
+}
+
+.open-reports-dashboard-btn {
+  background: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%);
+  border: none;
+  color: white;
+  padding: 20px 40px;
+  border-radius: 25px;
+  font-size: 1.3rem;
+  font-weight: 700;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  box-shadow: 0 10px 25px rgba(79, 172, 254, 0.3);
+  margin-bottom: 15px;
+}
+
+.open-reports-dashboard-btn:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 15px 35px rgba(79, 172, 254, 0.4);
+}
+
+.main-reports-button p {
+  margin: 0;
+  font-size: 1.1rem;
+  opacity: 0.9;
+}
+
+.reports-system-overview {
+  background: rgba(255, 255, 255, 0.1);
+  padding: 25px;
+  border-radius: 15px;
+  margin-top: 30px;
+}
+
+.reports-system-overview h3 {
+  color: white;
+  margin-bottom: 15px;
+  font-size: 1.8rem;
+}
+
+.reports-system-overview p {
+  color: rgba(255, 255, 255, 0.9);
+  margin-bottom: 25px;
+  font-size: 1.1rem;
+}
+
+.comprehensive-report {
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+}
+
+.comprehensive-report .report-header {
+  color: white;
+}
+
+.comprehensive-report .report-title h4 {
+  color: white;
+}
+
+.comprehensive-report .report-title p {
+  color: rgba(255, 255, 255, 0.9);
+}
